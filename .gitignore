@@ -135,3 +135,6 @@ fabric.properties
 
 # PyCharm configuration settings
 .idea
+
+# Bootstrap
+static/bootstrap-3.3.7-dist/
