@@ -1,4 +1,19 @@
-// proxy
+// ProMan Web application
+// By Chill_coders
+// According to State Pattern design
+
+
+// **** State Object Constructor****
+function State (state) {
+    this.state = state;
+
+    this.changeState = function(state) {
+        this.state = state
+    };
+}
+
+
+// **** Board Object Constructor ****
 function Board (title) {
     this.id = localStorage.length + 1;
     this.title = title;
@@ -8,21 +23,41 @@ function Board (title) {
 }
 
 
-$(document).ready(function() {
-    // localStorage.clear();
+// **** Implementation1 --- with browser's localStorage ****
+function LocalStorageManager() {
 
-    for (var i = 1; i < localStorage.length; i++) {
-        var board = JSON.parse(localStorage.getItem('board' + '_' + i));
-        $('div').append('<p>' + board.title + '</p>')
-    }
+}
 
-    $('button').click(function () {
-        var toAdd = $("input[name=board]").val();
-        $('div').append("<p>" + toAdd + "</p>");
-        var board = new Board(toAdd);
-        board.save_data(board, 'board');
+
+// **** MAIN ****
+function main() {
+    $(document).ready(function () {
+        // localStorage.clear();
+
+        for (var i = 1; i < localStorage.length + 1; i++) {
+            var board = JSON.parse(localStorage.getItem('board' + '_' + i));
+            $('div').append('<p>' + board.title + '</p>').fadeIn('fast');
+        }
+
+        $('#add').click(function () {
+            var toAdd = $("input[name=board]").val();
+            $('div').append("<p>" + toAdd + "</p>");
+            var board = new Board(toAdd);
+            board.save_data(board, 'board');
+        });
     });
-});
+}
+
+
+// **** calling for functions ****
+main();
+
+// for Implementation1
+// x = new State(LocalStorageManager());
+// main(x);
+// for Implementation2
+// x.changeState(Sprint2Stuff());
+// main(X);
 
 
 
