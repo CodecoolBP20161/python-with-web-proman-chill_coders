@@ -1,0 +1,20 @@
+form {
+    font-size: 12px;
+    font-family: Verdana, Arial, Sans-Serif;
+    display: inline-block;
+}
+p {
+    height: 100px;
+    width: 100px;
+    margin: 5px;
+    background-color: #4ECDC4;
+    border-radius: 5px;
+    display: inline-block;
+}
+.active {
+    background-color:#556677;
+}
+p:hover {
+    background-color:#556677;
+
+}
