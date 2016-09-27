@@ -30,8 +30,8 @@ function Board (id, title) {
 
 // **** Implementation1 --- with browser's localStorage ****
 function LocalStorageManager() {
+    this.rawData = localStorage;
     this.listOfBoards = [];
-    this.numOfBoards = this.listOfBoards.length;
 
     this.loadData = function() {
         for (var i = 0; i < localStorage.length; i++) {
@@ -41,41 +41,44 @@ function LocalStorageManager() {
     };
 
     this.saveData = function (boardObj) {
-        localStorage.setItem('board_' + (boardObj.id).toString(), JSON.stringify(boardObj));
+        var element = localStorage.setItem('board_' + (boardObj.id).toString(), JSON.stringify(boardObj));
+        this.listOfBoards.push(element);
     };
 }
 
 
 // **** MAIN ****
-function main() {
+function main(storage) {
     $(document).ready(function () {
         // localStorage.clear();
 
-        var storage = new State(new LocalStorageManager());
-
-        // displaying boards
-        for (var i = 0; i < storage.numOfBoards; i++) {
-            $('div').append('<p>' + storage.listOfBoards[i].title + '</p>');
+        // displaying boards --- loading data from storage place
+        storage.state.loadData();
+        for (var i = 0; i < storage.state.rawData.length; i++) {
+            $('div').append('<p>' + storage.state.listOfBoards[i].title + '</p>');
         }
         
-        // adding new boards
+        // adding new boards to DB and also displaying
         $('#add').click(function () {
             var toAdd = $("input[name=board]").val();
             $('div').append("<p>" + toAdd + "</p>");
-            var board = new Board((storage.numOfBoards) + 1, toAdd);
-            storage.saveData(board);
+            var board = new Board((storage.state.listOfBoards.length) + 1, toAdd);
+            storage.state.saveData(board);
         });
     });
 }
 
 
 // for Implementation1
-// var fromLocalStore = new State(new LocalStorageManager());
-main();
+var fromStorage = new State(new LocalStorageManager());
+main(fromStorage);
 // for Implementation2
-// x.changeState(Sprint2Stuff());
-// main(X);
+// fromStorage.changeState(Sprint2Stuff());
+// main(fromStorage);
 
+
+// - leellenőriztetni valamelyik mentorral
+// - displaying kiszervezése --- hogyan?
 
 
 
