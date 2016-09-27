@@ -1,23 +1,26 @@
+// proxy
 function Board (title) {
-    this.title = title
+    this.id = localStorage.length + 1;
+    this.title = title;
+    this.save_data = function (data, keyword) {
+        localStorage.setItem(keyword + '_' + data["id"], JSON.stringify(data));
+    };
 }
 
 
 $(document).ready(function() {
-    localStorage.clear();
-    // console.log(localStorage);
-    for (var i = 0; i < localStorage.length; i++) {
-        console.log(localStorage.getItem('board' + i));
-        var board = JSON.parse(localStorage.getItem('board' + i));
-        console.log(board);
-        $('div').append("<p>" + board.title + "</p>");
+    // localStorage.clear();
+
+    for (var i = 1; i < localStorage.length; i++) {
+        var board = JSON.parse(localStorage.getItem('board' + '_' + i));
+        $('div').append('<p>' + board.title + '</p>')
     }
 
     $('button').click(function () {
         var toAdd = $("input[name=board]").val();
         $('div').append("<p>" + toAdd + "</p>");
         var board = new Board(toAdd);
-        localStorage.setItem('board' + i, JSON.stringify(board));
+        board.save_data(board, 'board');
     });
 });
 
