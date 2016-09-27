@@ -1,5 +1,5 @@
 // ProMan Web application
-// By Chill_coders
+// By Chill_coders (Ádám, Andris, Dóri, Levi, Misi)
 // According to State Pattern design
 
 
@@ -9,6 +9,14 @@ function State (state) {
 
     this.changeState = function(state) {
         this.state = state
+    };
+
+    this.loadData = function() {
+        this.state.loadData()
+    };
+
+    this.saveData = function() {
+        this.state.saveData()
     };
 }
 
