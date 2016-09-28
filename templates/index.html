@@ -1,25 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-        <title>ProMan</title>
+    <!-- TITLE -->
+    <title>ProMan</title>
 
-        <!--<link rel="stylesheet" href="../static/bootstrap-3.3.7-dist/css/bootstrap.css">-->
+    <!-- Metro Bootstrap -->
+    <link href="../static/metro-bootstrap.css" rel="stylesheet">
+    <!-- Awesome Fonts -->
+    <link href="../static/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/style.css" rel="stylesheet">
+    <!-- Import JavaScript -->
+    <script type="text/javascript" src="../static/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="../static/robotkutya.js"></script>
+  </head>
 
-        <link rel='stylesheet' type='text/css' href='../static/stylesheet.css'>
-        <script src="../static/jquery-3.1.1.js"></script>
-        <script type='text/javascript' src='../static/script.js' defer></script>
+  <body>
+    <!-- HEADER -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Pro Man</a>
+        </div>
+      </div>
+    </nav>
 
-    </head>
-    <body>
-        <h1>ProMan</h1>
-        <form>
-            MAKE A NEW BOARD: <input type="text" name="board" placeholder="Create a new table here...">
-        </form>
-        <button>Add New Board!</button>
-        <div id="boards"></div>
-    </body>
+    <div class="container">
+        <div class="board-list">
+        </div>
+        <div id="new-board-tile" class="thumbnail tile tile-medium tile-concrete">
+            <div id="show">
+                <h3 class="tile-text">New Board</h3>
+                <i class="fa fa-4x fa-plus-square"></i>
+            </div>
+            <div id="edit">
+                <input id="title-input" type="text" class="form-control input-lg" placeholder="Title">
+                <i id="make-board" class="fa fa-4x fa-plus-square"></i>
+            </div>
+        </div>
+    </div>
+  </body>
 </html>
