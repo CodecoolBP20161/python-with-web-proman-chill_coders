@@ -25,24 +25,36 @@ function State (state) {
 function Board (id, title) {
     this.id = id;
     this.title = title;
+    this.listOfCards = [];
+}
+
+// **** Card Object Constructor ****
+function Card (id, owner, title) {
+    this.id = id;
+    this.owner = owner;
+    this.title = title;
 }
 
 
 // **** Implementation1 --- with browser's localStorage ****
 function LocalStorageManager() {
-    this.rawData = localStorage;
-    this.listOfBoards = [];
-
+    // loading data from localStorage
     this.loadData = function() {
-        for (var i = 0; i < localStorage.length; i++) {
-            this.listOfBoards.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-        }
-        return this.listOfBoards
+        return JSON.parse(localStorage.getItem('list_of_boards'));
     };
 
+    // sets listOfBoards attribute
+    if (localStorage.length == 0) {
+        this.listOfBoards = [];
+    }
+    else {
+        this.listOfBoards = this.loadData();
+    }
+
+    // saves data into localStorage
     this.saveData = function (boardObj) {
-        var element = localStorage.setItem('board_' + (boardObj.id).toString(), JSON.stringify(boardObj));
-        this.listOfBoards.push(element);
+        this.listOfBoards.push(boardObj);
+        localStorage.setItem('list_of_boards', JSON.stringify(this.listOfBoards));
     };
 }
 
@@ -53,16 +65,15 @@ function main(storage) {
         // localStorage.clear();
 
         // displaying boards --- loading data from storage place
-        storage.state.loadData();
-        for (var i = 0; i < storage.state.rawData.length; i++) {
+        for (var i = 0; i < storage.state.listOfBoards.length; i++) {
             $('div').append('<p>' + storage.state.listOfBoards[i].title + '</p>');
         }
-        
+
         // adding new boards to DB and also displaying
         $('#add').click(function () {
             var toAdd = $("input[name=board]").val();
             $('div').append("<p>" + toAdd + "</p>");
-            var board = new Board((storage.state.listOfBoards.length) + 1, toAdd);
+            var board = new Board(storage.state.listOfBoards.length, toAdd);
             storage.state.saveData(board);
         });
     });
@@ -75,10 +86,5 @@ main(fromStorage);
 // for Implementation2
 // fromStorage.changeState(Sprint2Stuff());
 // main(fromStorage);
-
-
-// - leellenőriztetni valamelyik mentorral
-// - displaying kiszervezése --- hogyan?
-
 
 
