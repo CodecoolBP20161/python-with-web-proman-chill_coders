@@ -7,7 +7,7 @@ var Board = function(title) {
 
 
 var newBoard = function() {
-    var title = prompt("Board name please");
+    var title = $('#title-input').val();
     var new_board = new Board(title);
     new_board.color = colorSelect();
     board_counter++;
@@ -56,9 +56,35 @@ var colorSelect = function() {
 
 
 $(document).ready(function() {
-   $('.new-board').click(function() {
-       new_board = newBoard()
-       html_string = buildBoard(new_board)
-       $( '.board-list' ).append( html_string );
-   });
+    $('#make-board').click(function() {
+        new_board = newBoard();
+        html_string = buildBoard(new_board);
+        $( '.board-list' ).append( html_string );
+        $( '#title-input' ).val('')
+    });
+    $('#new-board-tile').mouseenter(function() {
+        $(this).children( '#edit' ).show();
+        $(this).children( '#show' ).hide();
+    });
+    $('#new-board-tile').mouseleave(function() {
+        $(this).children( '#edit' ).hide();
+        $(this).children( '#show' ).show();
+    });
 });
+
+/*$( '.new-board' ).hover(
+  function() {
+    console.log('IN')
+    $( this ).append( '<input id="title-input" type="text" class="form-control" placeholder="Username">' );
+  }, function() {
+    console.log('OUT')
+    $( this ).append( '<h3 class="tile-text">New Board</h3>' );
+  }
+);*/
+/*$('ul li').on({
+    'mouseenter':function(){
+        $('#'+$(this).data('id')).fadeIn();
+    },'mouseleave':function(){
+        $('#'+$(this).data('id')).fadeOut();
+    }
+});*/
