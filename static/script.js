@@ -1,90 +1,102 @@
-var board_counter = 0;
+// ProMan Web application
+// By Chill_coders (Ádám, Andris, Dóri, Levi, Misi)
+// According to State Pattern design
 
-var Board = function(title) {
+
+// **** State Object Constructor****
+function State (state) {
+    this.state = state;
+
+    this.changeState = function (state) {
+        this.state = state
+    };
+
+    this.loadData = function() {
+        this.state.loadData()
+    };
+
+    this.saveData = function(data) {
+        this.state.saveData(data)
+    };
+}
+
+
+// **** Board Object Constructor ****
+function Board (id, title) {
+    this.id = id;
     this.title = title;
-    this.color = ""
-};
+    this.color = colorSelect(this);
+    this.listOfCards = [];
+}
+
+// **** Card Object Constructor ****
+function Card (id, owner, title) {
+    this.id = id;
+    this.owner = owner;
+    this.title = title;
+}
 
 
-var newBoard = function() {
-    var title = $('#title-input').val();
-    var new_board = new Board(title);
-    new_board.color = colorSelect();
-    board_counter++;
-    return new_board
-};
+// **** Implementation1 --- with browser's localStorage ****
+function LocalStorageManager(keyword) {
+    this.keyword = keyword;
+    // localStorage.clear();
 
-var buildBoard = function(board_object) {
-    var board_html = '<div class="thumbnail tile tile-medium ' +
-        board_object.color +
-        ' "><h1 class="tile-text">' +
-        board_object.title +
-        '</h1> </div>'
-    return board_html
-};
+    // loading data from localStorage
+    this.loadData = function() {
+        var listOfObjects = JSON.parse(localStorage.getItem(this.keyword));
+        if (listOfObjects === null)
+            listOfObjects = [];
+        return listOfObjects;
+    };
 
-var colorSelect = function() {
-    var board_color = "tile-pink";
-    switch (board_counter % 7) {
-        case 0:
-            board_color = "tile-green";
-            break;
-        case 1:
-            board_color = "tile-yellow";
-            break;
-        case 2:
-            board_color = "tile-purple";
-            break;
-        case 3:
-            board_color = "tile-red";
-            break;
-        case 4:
-            board_color = "tile-orange";
-            break;
-        case 5:
-            board_color = "tile-blue";
-            break;
-        case 6:
-            board_color = "tile-pink";
-            break;
-        default:
-            board_color = "tile-pink";
-            break;
-    }
-    return board_color
-};
+    // saves data into localStorage
+    this.saveData = function (obj) {
+        var listOfObjects = this.loadData();
+        listOfObjects.push(obj);
+        localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
+
+    };
+}
 
 
-$(document).ready(function() {
-    $('#make-board').click(function() {
-        new_board = newBoard();
-        html_string = buildBoard(new_board);
-        $( '.board-list' ).append( html_string );
-        $( '#title-input' ).val('')
+// **** MAIN ****
+function main(storage) {
+    $(document).ready(function () {
+        
+        // displaying boards --- loading data from storage place
+        var listOfData = storage.state.loadData();
+        for (var i = 0; i < listOfData.length; i++) {
+            $('.board-list').append(buildBoard(listOfData[i]));
+        }
+
+        // adding new boards to DB and also displaying
+        $('#make-board').click(function () {
+            var listOfData = storage.state.loadData();
+            var toAdd = $('#title-input').val();
+            var board = new Board(listOfData.length, toAdd);
+            $('.board-list').append(buildBoard(board));
+            $('#title-input').val('');
+            storage.state.saveData(board);
+        });
+        
+        $('#new-board-tile').mouseenter(function() {
+            $(this).children( '#edit' ).show();
+            $(this).children( '#show' ).hide();
+        });
+        $('#new-board-tile').mouseleave(function() {
+            $(this).children( '#edit' ).hide();
+            $(this).children( '#show' ).show();
+        });
     });
-    $('#new-board-tile').mouseenter(function() {
-        $(this).children( '#edit' ).show();
-        $(this).children( '#show' ).hide();
-    });
-    $('#new-board-tile').mouseleave(function() {
-        $(this).children( '#edit' ).hide();
-        $(this).children( '#show' ).show();
-    });
-});
+}
 
-/*$( '.new-board' ).hover(
-  function() {
-    console.log('IN')
-    $( this ).append( '<input id="title-input" type="text" class="form-control" placeholder="Username">' );
-  }, function() {
-    console.log('OUT')
-    $( this ).append( '<h3 class="tile-text">New Board</h3>' );
-  }
-);*/
-/*$('ul li').on({
-    'mouseenter':function(){
-        $('#'+$(this).data('id')).fadeIn();
-    },'mouseleave':function(){
-        $('#'+$(this).data('id')).fadeOut();
-    }
-});*/
+
+// for Implementation1
+var fromStorage = new State(new LocalStorageManager('list_of_boards'));
+main(fromStorage);
+// for Implementation2
+// fromStorage.changeState(Sprint2Stuff());
+// main(fromStorage);
+
+
