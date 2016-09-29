@@ -95,9 +95,16 @@ function boardGrow(event) {
         });
 };
 
+function removeOtherBoards(event) {
+    var element = $( event.target ).closest('.board-element');
+    $('.board-element').remove();
+    $('.board-list').append(element);
+    $('#make-board').prop('id', "make-card");
+}
+
 // effects collection
 var boardEffects = function() {
-
+    $('.board-element').on("click", removeOtherBoards);
     $('.board-element').on("click", boardGrow);
 
     // later effects
