@@ -122,7 +122,7 @@ ENV/
 /out/
 
 # mpeltonen/sbt-idea plugin
-.idea_modules/
+.idea_modules/1
 
 # JIRA plugin
 atlassian-ide-plugin.xml
@@ -132,3 +132,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# PyCharm configuration settings
+.idea

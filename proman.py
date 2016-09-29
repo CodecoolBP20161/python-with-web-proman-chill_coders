@@ -1,7 +1,8 @@
-from flask import Flask,render_template
+from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 app.config.from_object(__name__)
+
 
 @app.route('/')
 def main():

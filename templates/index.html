@@ -1,8 +1,50 @@
 <!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- TITLE -->
+    <title>ProMan</title>
+
+    <!-- Metro Bootstrap -->
+    <link href="../static/metro-bootstrap.css" rel="stylesheet">
+    <!-- Awesome Fonts -->
+    <link href="../static/font-awesome-4.6.3/css/font-awesome.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="../static/style.css" rel="stylesheet">
+    <!-- Import JavaScript -->
+    <script type="text/javascript" src="../static/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="../static/robotkutya.js"></script>
+    <script type="text/javascript" src="../static/script.js"></script>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="https://codecool.hu/">Pro Man</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="board-list">
+        </div>
+        <div id="new-board-tile" class="thumbnail tile tile-medium tile-concrete">
+            <div id="show">
+                <h1 class="tile-text">New</h1>
+                <i class="fa fa-4x fa-plus-square"></i>
+            </div>
+            <div id="edit">
+                <input id="title-input" type="text" class="form-control input-lg" placeholder="New" maxlength="12">
+                <i id="make-board" class="fa fa-4x fa-plus-square"></i>
+            </div>
+        </div>
+    </div>
+  </body>
 </html>
+
