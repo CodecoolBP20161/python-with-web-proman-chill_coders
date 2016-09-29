@@ -29,6 +29,7 @@ function Board (id, title) {
     this.listOfCards = [];
 }
 
+
 // **** Card Object Constructor ****
 function Card (id, owner, title) {
     this.id = id;
@@ -50,12 +51,21 @@ function LocalStorageManager(keyword) {
         return listOfObjects;
     };
 
-    // saves data into localStorage
-    this.saveData = function (obj) {
+    // saves and update data into localStorage
+    this.saveData = function (obj1, obj2) {
         var listOfObjects = this.loadData();
-        listOfObjects.push(obj);
+        if (typeof(obj2)=== 'undefined') {
+            listOfObjects.push(obj1);
+        }
+        else {
+            for (var element = 0; element < listOfObjects.length; element++) {
+                if (obj1.id === listOfObjects[element].id) {
+                    listOfObjects[element].listOfCards.push(obj2);
+                    break;
+                }
+            }
+        }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
-
     };
 }
 
