@@ -4,14 +4,14 @@
 
 // **** Board object to html builder ****
 var buildBoard = function(board_object) {
-    var board_html = '<div class="board-element">' +
+    var board_html = '<div class="board-element" id="board'+board_object.id+'">' +
                      '<div class="board-show">' +
                      '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
-                     '<h1 class="tile-text"> ' + board_object.title + ' </h1>' +
+                     '<h1 class="tile-text">' + board_object.title + '</h1>' +
                      '</div>' +
                      '</div>' +
                      '<div class="board-edit">' +
-                     '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
+                     '<div class="thumbnail tile tile-medium ' + board_object.color +'">' +
                      '<h1 class="tile-text"> Cards</h1>' +
                      '<i class="fa fa-4x fa-trello"></i>' +
                      '</div>' +
