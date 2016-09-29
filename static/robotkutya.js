@@ -15,11 +15,19 @@ var newBoard = function() {
 }
 
 var buildBoard = function(board_object) {
-    var board_html = '<div class="thumbnail tile tile-medium ' +
-        board_object.color +
-        ' "><h1 class="tile-text">' +
-        board_object.title +
-        '</h1> </div>'
+    var board_html = '<div class="board-element">' +
+                     '<div class="board-show">' +
+                     '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
+                     '<h1 class="tile-text"> ' + board_object.title + ' </h1>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="board-edit">' +
+                     '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
+                     '<h1 class="tile-text"> Cards</h1>' +
+                     '<i class="fa fa-4x fa-trello"></i>' +
+                     '</div>' +
+                     '</div>' +
+                     '</div>';
     return board_html
 }
 
@@ -62,29 +70,29 @@ $(document).ready(function() {
         $( '.board-list' ).append( html_string );
         $( '#title-input' ).val('')
     });
+
+    $('.board-element').mouseenter(function() {
+        $(this).children( '.board-show' ).fadeOut(150, function(){
+            $(this).next().fadeIn(150);
+        });
+    });
+    $('.board-element').mouseleave(function() {
+        $(this).children( '.board-edit' ).fadeOut(150, function(){
+            $(this).prev().fadeIn(150);
+        })
+    });
+
     $('#new-board-tile').mouseenter(function() {
-        $(this).children( '#edit' ).show();
         $(this).children( '#show' ).hide();
+        $(this).children( '#edit' ).show();
+        $( '#title-input' ).hide();
+        $( '#title-input' ).fadeIn(300).focus();
     });
     $('#new-board-tile').mouseleave(function() {
-        $(this).children( '#edit' ).hide();
-        $(this).children( '#show' ).show();
+        $( '#edit' ).hide(0, function(){
+            $( '#show' ).show(0);
+        });
     });
+
 });
 
-/*$( '.new-board' ).hover(
-  function() {
-    console.log('IN')
-    $( this ).append( '<input id="title-input" type="text" class="form-control" placeholder="Username">' );
-  }, function() {
-    console.log('OUT')
-    $( this ).append( '<h3 class="tile-text">New Board</h3>' );
-  }
-);*/
-/*$('ul li').on({
-    'mouseenter':function(){
-        $('#'+$(this).data('id')).fadeIn();
-    },'mouseleave':function(){
-        $('#'+$(this).data('id')).fadeOut();
-    }
-});*/
