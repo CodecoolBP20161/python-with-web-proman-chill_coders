@@ -30,7 +30,7 @@ var buildBoard = function(board_object) {
 };
 
 // **** Displaying boards --- loading data from storage place ****
-var drawBoards = function(storage, hova) {
+var drawBoards = function(storage) {
     var listOfData = storage.state.loadData();
     for (var i = 0; i < listOfData.length; i++) {
         $('.board-list').append(buildBoard(listOfData[i]));
@@ -46,6 +46,7 @@ var drawNewBoard = function(storage) {
             var board = new Board(listOfData.length, toAdd);
             $('.board-list').append(buildBoard(board));
             $('.board-list').last().on("click", boardGrow);
+            $('.board-list').last().on("click", removeOtherBoards);
             $('#title-input').val('');
             storage.state.saveData(board);
         }
@@ -87,37 +88,10 @@ var colorSelect = function(object) {
 
 // **** Effects for boards ****
 
-// grow to wide when clicked on
-function boardGrow(event) {
-    var element = $( event.target ).closest('.board-element');
-    element.children('.board-show').hide(0, function () {
-            $(this).next().fadeIn(50);
-        });
-};
-
-function removeOtherBoards(event) {
-    var element = $( event.target ).closest('.board-element');
-    $('.board-element').remove();
-    $('.board-list').append(element);
-    $('#make-board').prop('id', "make-card");
-}
-
 // effects collection
 var boardEffects = function() {
     $('.board-element').on("click", removeOtherBoards);
     $('.board-element').on("click", boardGrow);
-
-    // later effects
-    /*$('.board-element').mouseenter(function () {
-        $(this).children('.board-show').hide(0, function () {
-            $(this).next().fadeIn(50);
-        });
-    });
-    $('.board-element').mouseleave(function () {
-        $(this).children('.board-edit').hide(0, function () {
-            $(this).prev().fadeIn(50);
-        })
-    });*/
 };
 
 // effects for add new board tile

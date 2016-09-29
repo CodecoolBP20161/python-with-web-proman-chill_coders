@@ -30,9 +30,19 @@ function LocalStorageManager(keyword) {
     };
 
     // saves data into localStorage
-    this.saveData = function (obj) {
+    this.saveData = function (board, card) {
         var listOfObjects = this.loadData();
-        listOfObjects.push(obj);
+        if (typeof(card) === 'undefined') {
+            listOfObjects.push(board);
+        }
+        else {
+            for (var i = 0; i < listOfObjects.length; i++) {
+                if (listOfObjects[i].id === board.id) {
+                    board.listOfCards.push(card);
+                    listOfObjects[i].listOfCards.push(card);
+                }
+            }
+        }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
 
     };
