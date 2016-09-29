@@ -12,14 +12,15 @@ function Board (id, title) {
 
 // **** Board object to html builder ****
 var buildBoard = function(board_object) {
-    var board_html = '<div class="board-element">' +
+    var board_html = '<div class="board-element" id="' +
+                     board_object.id + '">' +
                      '<div class="board-show">' +
                      '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
                      '<h1 class="tile-text"> ' + board_object.title + ' </h1>' +
                      '</div>' +
                      '</div>' +
                      '<div class="board-edit">' +
-                     '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
+                     '<div class="thumbnail tile tile-wide ' + board_object.color + '">' +
                      '<h1 class="tile-text"> Cards</h1>' +
                      '<i class="fa fa-4x fa-trello"></i>' +
                      '</div>' +
@@ -29,7 +30,7 @@ var buildBoard = function(board_object) {
 };
 
 // **** Displaying boards --- loading data from storage place ****
-var drawBoards = function(storage) {
+var drawBoards = function(storage, hova) {
     var listOfData = storage.state.loadData();
     for (var i = 0; i < listOfData.length; i++) {
         $('.board-list').append(buildBoard(listOfData[i]));
@@ -44,6 +45,7 @@ var drawNewBoard = function(storage) {
         if (0 < toAdd.length) {
             var board = new Board(listOfData.length, toAdd);
             $('.board-list').append(buildBoard(board));
+            $('.board-list').last().on("click", boardGrow);
             $('#title-input').val('');
             storage.state.saveData(board);
         }
@@ -85,9 +87,21 @@ var colorSelect = function(object) {
 
 // **** Effects for boards ****
 
-// effects for boards
+// grow to wide when clicked on
+function boardGrow(event) {
+    var element = $( event.target ).closest('.board-element');
+    element.children('.board-show').hide(0, function () {
+            $(this).next().fadeIn(50);
+        });
+};
+
+// effects collection
 var boardEffects = function() {
-    $('.board-element').mouseenter(function () {
+
+    $('.board-element').on("click", boardGrow);
+
+    // later effects
+    /*$('.board-element').mouseenter(function () {
         $(this).children('.board-show').hide(0, function () {
             $(this).next().fadeIn(50);
         });
@@ -96,7 +110,7 @@ var boardEffects = function() {
         $(this).children('.board-edit').hide(0, function () {
             $(this).prev().fadeIn(50);
         })
-    });
+    });*/
 };
 
 // effects for add new board tile
@@ -112,4 +126,4 @@ var newBoardEffects = function() {
             $('#show').show(0);
         });
     });
-}
+};
