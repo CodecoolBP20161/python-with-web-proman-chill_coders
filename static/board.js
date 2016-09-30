@@ -22,8 +22,16 @@ var buildBoard = function(board_object) {
                      '<div class="board-edit">' +
                      '<div class="thumbnail tile tile-wide ' + board_object.color + '">' +
                      '<h1 class="tile-text">' + board_object.title + '</h1>' +
-                     '<span class="fa fa-fw fa-4x fa-arrow-circle-left" id="back-to-boards"></span>' +
-                     '<span class="fa fa-fw fa-4x fa-gear"></span>' +
+                     '<span class="fa fa-fw fa-4x fa-arrow-circle-left back-to-boards"></span>' +
+                     '<span class="fa fa-fw fa-4x fa-gear" id="open-menu"></span>' +
+                     '</div>' +
+                     '</div>' +
+                     '<div class="board-menu">' +
+                     '<div class="thumbnail tile tile-large ' + board_object.color + '">' +
+                     '<h1 class="tile-text">' + board_object.title + '</h1>' +
+                     '<span class="fa fa-fw fa-4x fa-arrow-circle-left back-to-boards"></span>' +
+                     '<span class="fa fa-fw fa-4x fa-gear" id="close-menu"></span>' +
+                     '<h1 class="tile-text" id="close-menu">This is where menu items will be when implemented</h1>' +
                      '</div>' +
                      '</div>' +
                      '</div>';
@@ -90,7 +98,7 @@ function removeBoards() {
 function removeOtherBoards(event) {
     localStorage.setItem('page_state', 'card-level');
     var element = $( event.target ).closest('.board-element');
-    removeBoards()
+    removeBoards();
     $('.board-list').append(element);
     // saves current board to localStorage
     var cur_board = getBoardObject(element);
@@ -98,14 +106,6 @@ function removeOtherBoards(event) {
     localStorage.setItem('page_state', 'card-level');
 
 }
-
-// **** Change tile to wide ****
-function boardGrow(event) {
-    var element = $( event.target ).closest('.board-element');
-    element.children('.board-show').hide(0, function () {
-        $(this).next().fadeIn(50);
-    });
-};
 
 // **** Gets board object from local storage for a board node ****
 function getBoardObject(element) {
@@ -117,3 +117,27 @@ function getBoardObject(element) {
         }
     }
 }
+
+// **** Change board tile to wide ****
+function boardGrow(event) {
+    var element = $( event.target ).closest('.board-element');
+    element.children('.board-show').hide(0, function () {
+        $(this).next().fadeIn(300);
+    });
+};
+
+// **** Open a board's menu ****
+function boardMenuOpen(event) {
+    var element = $( event.target ).closest('.board-element');
+    element.children('.board-edit').hide(0, function () {
+        $(this).next().fadeIn(300);
+    });
+};
+
+// **** Close a board's menu ****
+function boardMenuClose(event) {
+    var element = $( event.target ).closest('.board-element');
+    element.children('.board-menu').hide(0, function () {
+        $(this).prev().fadeIn(300);
+    });
+};

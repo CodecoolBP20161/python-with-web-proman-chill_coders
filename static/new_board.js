@@ -6,7 +6,7 @@ var drawNewBoard = function(event) {
         if (0 < toAdd.length) {
             var board = new Board(listOfData.length, toAdd);
             storage.state.saveData(board);
-            $('.board-list').append(buildBoard(board));
+            $('.board-list').append(buildBoard(board)).animate(opacity);
         }
 };
 
@@ -16,7 +16,7 @@ var newBoardEffects = function() {
         $(this).children('#show').hide();
         $(this).children('#edit').show();
         $('#title-input').hide();
-        $('#title-input').fadeIn(100).focus();
+        $('#title-input').fadeIn(800).focus();
     });
     $('#new-board-tile').mouseleave(function () {
         $('#edit').hide(0, function () {

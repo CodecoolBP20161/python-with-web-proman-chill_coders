@@ -3,8 +3,6 @@
 //
 var boardEvents = function() {
     // boards
-    $('#back-to-boards').off("click");
-    $('.board-element').off("click");
     $('.board-element').on("click", function(event){
         removeOtherBoards(event);
         boardGrow(event);
@@ -14,7 +12,6 @@ var boardEvents = function() {
     });
 
     // switch adder to add boards
-    $('#make-card').off("click");
     $('#make-card').prop('id', "make-board");
     $('#make-board').on("click", function(event){
         drawNewBoard(event);
@@ -25,15 +22,25 @@ var boardEvents = function() {
 
 var cardEvents = function() {
     // boards
-    $('#back-to-boards').on("click", function(event){
+    $('.back-to-boards').on("click", function(event){
         removeCards();
         removeBoards();
         localStorage.setItem('page_state', 'board-level');
         drawBoards();
         boardEvents();
     });
+
+    // Open and close board menu
+    $('#open-menu').on("click", function(event){
+        $('#open-menu').prop('id', "close-menu");
+        boardMenuOpen(event);
+    });
+    $('#close-menu').on("click", function(event){
+        $('#close-menu').prop('id', "open-menu");
+        boardMenuClose(event);
+    });
+
     // board adder
-    $('#make-board').off("click");
     $('#make-board').prop('id', "make-card");
     $('#make-card').on("click", drawNewCard);
 };
