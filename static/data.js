@@ -1,4 +1,14 @@
-// **** State Object Constructor****
+//
+// **** State Settings ****
+//
+// for Implementation1
+var storage = new State(new LocalStorageManager('list_of_boards'));
+// for Implementation2
+// fromStorage.changeState(Sprint2Stuff());
+
+
+
+// **** State Object Constructor ****
 function State (state) {
     this.state = state;
 
@@ -44,6 +54,5 @@ function LocalStorageManager(keyword) {
             }
         }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
-
     };
 }

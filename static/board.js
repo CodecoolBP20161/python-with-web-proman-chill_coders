@@ -21,8 +21,8 @@ var buildBoard = function(board_object) {
                      '</div>' +
                      '<div class="board-edit">' +
                      '<div class="thumbnail tile tile-wide ' + board_object.color + '">' +
-                     '<h1 class="tile-text"> Cards</h1>' +
-                     '<i class="fa fa-4x fa-trello"></i>' +
+                     '<h1 class="tile-text">' + board_object.title + '</h1>' +
+                     '<i class="fa fa-4x fa-trello" id="back-to-boards"></i>' +
                      '</div>' +
                      '</div>' +
                      '</div>';
@@ -30,28 +30,16 @@ var buildBoard = function(board_object) {
 };
 
 // **** Displaying boards --- loading data from storage place ****
-var drawBoards = function(storage) {
-    var listOfData = storage.state.loadData();
-    for (var i = 0; i < listOfData.length; i++) {
-        $('.board-list').append(buildBoard(listOfData[i]));
+var drawBoards = function() {
+    var page_state = localStorage.getItem('page_state');
+    if (page_state === 'board-level') {
+        var listOfData = storage.state.loadData();
+        for (var i = 0; i < listOfData.length; i++) {
+            $('.board-list').append(buildBoard(listOfData[i]));
+        }
     }
 };
 
-// **** Draw new board and save to db ****
-var drawNewBoard = function(storage) {
-    $('#make-board').click(function () {
-        var listOfData = storage.state.loadData();
-        var toAdd = $('#title-input').val();
-        if (0 < toAdd.length) {
-            var board = new Board(listOfData.length, toAdd);
-            $('.board-list').append(buildBoard(board));
-            $('.board-list').last().on("click", boardGrow);
-            $('.board-list').last().on("click", removeOtherBoards);
-            $('#title-input').val('');
-            storage.state.saveData(board);
-        }
-    });
-};
 
 // **** Select Color for boards based on board id ****
 var colorSelect = function(object) {
@@ -83,28 +71,4 @@ var colorSelect = function(object) {
             break;
     }
     return board_color
-};
-
-
-// **** Effects for boards ****
-
-// effects collection
-var boardEffects = function() {
-    $('.board-element').on("click", removeOtherBoards);
-    $('.board-element').on("click", boardGrow);
-};
-
-// effects for add new board tile
-var newBoardEffects = function() {
-    $('#new-board-tile').mouseenter(function () {
-        $(this).children('#show').hide();
-        $(this).children('#edit').show();
-        $('#title-input').hide();
-        $('#title-input').fadeIn(100).focus();
-    });
-    $('#new-board-tile').mouseleave(function () {
-        $('#edit').hide(0, function () {
-            $('#show').show(0);
-        });
-    });
 };
