@@ -1,5 +1,6 @@
-
-// functional events that happen to boards and cards and the adder tile
+//
+// events that happen in board view or card view
+//
 var boardEvents = function() {
     // boards
     $('#back-to-boards').off("click");

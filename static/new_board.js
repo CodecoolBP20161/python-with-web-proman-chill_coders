@@ -1,7 +1,4 @@
-// board and card adder stuff
-
 // **** Draw new-board object and save to db ****
-
 var drawNewBoard = function(event) {
         var listOfData = storage.state.loadData();
         var toAdd = $('#title-input').val();
@@ -13,7 +10,7 @@ var drawNewBoard = function(event) {
         }
 };
 
-// effects for add new board tile
+// **** Eeffects for add new board tile ****
 var newBoardEffects = function() {
     $('#new-board-tile').mouseenter(function () {
         $(this).children('#show').hide();

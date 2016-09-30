@@ -33,7 +33,7 @@ var drawNewCard = function(event) {
 };
 
 
-// **** Draw existing cards when in card view mode ****
+// **** Draw existing cards for the current board ****
 var drawCards = function() {
     var page_state = localStorage.getItem('page_state');
     if (page_state === 'card-level') {
@@ -49,7 +49,7 @@ var drawCards = function() {
 
 };
 
-// **** removes all cards ****
+// **** Removes all cards ****
 function removeCards() {
     $('.card-element').remove();
 }

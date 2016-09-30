@@ -81,12 +81,12 @@ var colorSelect = function(object) {
     return board_color
 };
 
-// **** Select Color for boards based on board id ****
+// **** Remove all boards ****
 function removeBoards() {
     $('.board-element').remove();
 }
 
-// removes other boards and saves current board object to localStorage
+// **** removes other boards and saves current board object to localStorage ****
 function removeOtherBoards(event) {
     localStorage.setItem('page_state', 'card-level');
     var element = $( event.target ).closest('.board-element');
@@ -99,7 +99,7 @@ function removeOtherBoards(event) {
 
 }
 
-// grow to wide when clicked on
+// **** Change tile to wide ****
 function boardGrow(event) {
     var element = $( event.target ).closest('.board-element');
     element.children('.board-show').hide(0, function () {
@@ -107,7 +107,7 @@ function boardGrow(event) {
     });
 };
 
-// gets board object from local storage for a board node
+// **** Gets board object from local storage for a board node ****
 function getBoardObject(element) {
     var board_id = parseInt(element.attr('id'), 10);
     var board_list = storage.state.loadData();

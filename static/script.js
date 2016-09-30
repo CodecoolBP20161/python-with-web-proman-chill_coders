@@ -10,7 +10,6 @@ function main() {
         var page_state = state_initializer();
 
         if (page_state === 'board-level') {
-            console.log('in board if')
             drawBoards();
             boardEvents();
         }
