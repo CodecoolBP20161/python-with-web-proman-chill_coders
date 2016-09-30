@@ -47,3 +47,7 @@
 .board-edit{
     display: none;
 }
+
+#back-to-boards{
+    text-align: left;
+}

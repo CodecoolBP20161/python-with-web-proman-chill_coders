@@ -52,6 +52,7 @@ function LocalStorageManager(keyword) {
                     listOfObjects[i].listOfCards.push(card);
                 }
             }
+            localStorage.setItem('current_board', JSON.stringify(board));
         }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
     };

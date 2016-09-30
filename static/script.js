@@ -7,14 +7,18 @@
 function main() {
     $(document).ready(function () {
         // initialize page state
-        state_initializer()
-        // displaying boards --- loading data from storage place
-        drawBoards();
-        drawCards();
+        var page_state = state_initializer();
 
-        // events for boards, cards and the adder tile
-        boardEvents();
-        newBoardEvents();
+        if (page_state === 'board-level') {
+            console.log('in board if')
+            drawBoards();
+            boardEvents();
+        }
+        else if (page_state === 'card-level') {
+            drawBoards();
+            drawCards();
+            cardEvents();
+        }
 
         // visual effects
         newBoardEffects();
@@ -24,15 +28,12 @@ function main() {
 
 // **** Initialization for reloading ****
 function state_initializer() {
-/*    var page_state = localStorage.getItem('page_state');
-    if (typeof(page_state) === 'undefined') {
-        localStorage.setItem('page_state', JSON.stringify('board-level'));
-        console.log('thisisit')
-    }*/
-    localStorage.setItem('page_state', 'board-level');
+    var page_state = localStorage.getItem('page_state');
+    if (page_state === null) {
+        var page_state = localStorage.setItem('page_state', 'board-level');
+    }
+    return page_state
 }
-
-// board-level if in drawBoard
 
 
 

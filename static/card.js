@@ -3,7 +3,7 @@ function Card (id, owner, title) {
     this.id = id;
     this.owner = owner;
     this.title = title;
-    this.color = colorSelect(this);
+    this.color = colorSelect(owner + id);
 }
 
 // **** Build html node from card object ****
@@ -24,11 +24,11 @@ var buildCard = function(card_object) {
 var drawNewCard = function(event) {
     var current = JSON.parse(localStorage.getItem('current_board'));
     var toAdd = $('#title-input').val();
+    $('#title-input').val('');
     if (0 < toAdd.length) {
         var card = new Card(current.listOfCards.length, current.id, toAdd);
-        $('.card-list').append(buildCard(card));
-        $('#title-input').val('');
         storage.state.saveData(current, card);
+        $('.card-list').append(buildCard(card));
     }
 };
 
@@ -40,11 +40,16 @@ var drawCards = function() {
         var current = JSON.parse(localStorage.getItem('current_board'));
         if (current !== null) {
             var card_list = current.listOfCards;
+            for (var i = 0; i < card_list.length; i++) {
+                $('.card-list').append(buildCard(card_list[i]));
+            }
         }
-    } else {
-        var card_list = [];
+
     }
-    for (var i = 0; i < card_list.length; i++) {
-        $('.card-list').append(buildCard(card_list[i]));
-    }
+
 };
+
+// **** removes all cards ****
+function removeCards() {
+    $('.card-element').remove();
+}

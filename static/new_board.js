@@ -5,13 +5,11 @@
 var drawNewBoard = function(event) {
         var listOfData = storage.state.loadData();
         var toAdd = $('#title-input').val();
+        $('#title-input').val('');
         if (0 < toAdd.length) {
             var board = new Board(listOfData.length, toAdd);
-            $('.board-list').append(buildBoard(board));
-            $('.board-list').last().on("click", boardGrow);
-            $('.board-list').last().on("click", removeOtherBoards);
-            $('#title-input').val('');
             storage.state.saveData(board);
+            $('.board-list').append(buildBoard(board));
         }
 };
 

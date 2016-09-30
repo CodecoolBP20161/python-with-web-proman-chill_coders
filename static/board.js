@@ -22,7 +22,8 @@ var buildBoard = function(board_object) {
                      '<div class="board-edit">' +
                      '<div class="thumbnail tile tile-wide ' + board_object.color + '">' +
                      '<h1 class="tile-text">' + board_object.title + '</h1>' +
-                     '<i class="fa fa-4x fa-trello" id="back-to-boards"></i>' +
+                     '<span class="fa fa-fw fa-4x fa-arrow-circle-left" id="back-to-boards"></span>' +
+                     '<span class="fa fa-fw fa-4x fa-gear"></span>' +
                      '</div>' +
                      '</div>' +
                      '</div>';
@@ -37,6 +38,13 @@ var drawBoards = function() {
         for (var i = 0; i < listOfData.length; i++) {
             $('.board-list').append(buildBoard(listOfData[i]));
         }
+    }
+    else if (page_state === 'card-level') {
+        var current = JSON.parse(localStorage.getItem('current_board'));
+        $('.board-list').append(buildBoard(current));
+        $( '.board-element' ).children('.board-show').hide(0, function () {
+            $(this).next().fadeIn(50);
+        });
     }
 };
 
@@ -72,3 +80,40 @@ var colorSelect = function(object) {
     }
     return board_color
 };
+
+// **** Select Color for boards based on board id ****
+function removeBoards() {
+    $('.board-element').remove();
+}
+
+// removes other boards and saves current board object to localStorage
+function removeOtherBoards(event) {
+    localStorage.setItem('page_state', 'card-level');
+    var element = $( event.target ).closest('.board-element');
+    removeBoards()
+    $('.board-list').append(element);
+    // saves current board to localStorage
+    var cur_board = getBoardObject(element);
+    localStorage.setItem('current_board', JSON.stringify(cur_board));
+    localStorage.setItem('page_state', 'card-level');
+
+}
+
+// grow to wide when clicked on
+function boardGrow(event) {
+    var element = $( event.target ).closest('.board-element');
+    element.children('.board-show').hide(0, function () {
+        $(this).next().fadeIn(50);
+    });
+};
+
+// gets board object from local storage for a board node
+function getBoardObject(element) {
+    var board_id = parseInt(element.attr('id'), 10);
+    var board_list = storage.state.loadData();
+    for (var i = 0; i<board_list.length; i++) {
+        if (board_list[i].id === board_id) {
+            return board_list[i];
+        }
+    }
+}
