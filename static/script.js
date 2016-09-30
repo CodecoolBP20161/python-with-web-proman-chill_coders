@@ -19,8 +19,6 @@ function main() {
             drawCards();
             cardEvents();
         }
-
-        // visual effects
         newBoardEffects();
     });
 }
@@ -30,7 +28,8 @@ function main() {
 function state_initializer() {
     var page_state = localStorage.getItem('page_state');
     if (page_state === null) {
-        var page_state = localStorage.setItem('page_state', 'board-level');
+        page_state = 'board-level';
+        localStorage.setItem('page_state', 'board-level');
     }
     return page_state
 }

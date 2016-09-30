@@ -3,7 +3,7 @@ function Card (id, owner, title) {
     this.id = id;
     this.owner = owner;
     this.title = title;
-    this.color = colorSelect(owner + id);
+    this.color = colorSelect(this);
 }
 
 // **** Build html node from card object ****
