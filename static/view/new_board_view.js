@@ -6,11 +6,11 @@ var drawNewBoard = function(event) {
         if (0 < toAdd.length) {
             var board = new Board(listOfData.length, toAdd);
             storage.state.saveData(board);
-            $('.board-list').append(buildBoard(board)).animate(opacity);
+            $('.board-list').append(BoardView(board)).animate(200, opacity=1);
         }
 };
 
-// **** Eeffects for add new board tile ****
+// **** Effects for add new board tile ****
 var newBoardEffects = function() {
     $('#new-board-tile').mouseenter(function () {
         $(this).children('#show').hide();

@@ -6,7 +6,7 @@ var boardEvents = function() {
     $('.board-element').on("click", function(event){
         removeOtherBoards(event);
         boardGrow(event);
-        localStorage.setItem('page_state', 'card-level');
+        localStorage.setItem('pageState', 'card-level');
         drawCards();
         cardEvents();
     });
@@ -25,7 +25,7 @@ var cardEvents = function() {
     $('.back-to-boards').on("click", function(event){
         removeCards();
         removeBoards();
-        localStorage.setItem('page_state', 'board-level');
+        localStorage.setItem('pageState', 'board-level');
         drawBoards();
         boardEvents();
     });
