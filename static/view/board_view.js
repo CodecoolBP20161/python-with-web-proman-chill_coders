@@ -104,7 +104,7 @@ function boardGrow(event) {
     element.children('.board-show').hide(0, function () {
         $(this).next().fadeIn(300);
     });
-};
+}
 
 
 // **** Open a board's menu ****
@@ -113,7 +113,7 @@ function boardMenuOpen(event) {
     element.children('.board-edit').hide(0, function () {
         $(this).next().fadeIn(300);
     });
-};
+}
 
 
 // **** Close a board's menu ****
@@ -122,4 +122,4 @@ function boardMenuClose(event) {
     element.children('.board-menu').hide(0, function () {
         $(this).prev().fadeIn(300);
     });
-};
+}

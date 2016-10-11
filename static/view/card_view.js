@@ -19,7 +19,6 @@ var drawNewCard = function(event) {
     $('#title-input').val('');
     if (0 < toAdd.length) {
         var card = new Card(current.listOfCards.length, current.id, toAdd);
-        console.log(card);
         storage.state.saveData(current, card);
         $('.card-list').append(CardView(card));
     }
