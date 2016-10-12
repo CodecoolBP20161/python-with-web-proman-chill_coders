@@ -3,11 +3,23 @@
     word-wrap: break-word;
 }
 
+li {
+    list-style: none;
+    float: left;
+}
+
+.placeholder {
+    background-color: white;
+    box-shadow: none;
+}
+
 .tile {
     box-shadow: 5px 5px 5px #c3c3c3;
     border: 0;
     margin-right: 12px;
     margin-bottom: 12px;
+    width: 150px;
+    height: 150px;
 }
 
 #title-input{
@@ -35,6 +47,7 @@
 
 #new-board-tile{
     opacity: 0.75;
+    float: left;
 }
 
 .board-element{

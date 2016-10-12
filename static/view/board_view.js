@@ -1,6 +1,6 @@
 // **** Board object to html builder ****
 var BoardView = function (boardObject) {
-    var boardHtml = '<div class="board-element" id="' +
+    var boardHtml = '<li class="board-element" id="' +
         boardObject.id + '">' +
         '<div class="board-show">' +
         '<div class="thumbnail tile tile-medium ' + boardObject.color + '">' +
@@ -22,7 +22,7 @@ var BoardView = function (boardObject) {
         '<h1 class="tile-text" id="close-menu">This is where menu items will be when implemented</h1>' +
         '</div>' +
         '</div>' +
-        '</div>';
+        '</li>';
     return boardHtml
 };
 
@@ -123,3 +123,19 @@ function boardMenuClose(event) {
         $(this).prev().fadeIn(300);
     });
 };
+
+$(function () {
+    $("ul").sortable({
+        items: 'li',
+        dropOnEmpty: false,
+        scroll: false,
+        update: function (event, ui) {
+            var order = $($this).sortable('serialize');
+            console.log(order)
+        },
+        helper: 'clone',
+        zIndex: 9999,
+        tolerance: 'pointer',
+        placeholder: 'placeholder thumbnail tile tile-medium',
+        forceHelperSize: true});
+});
