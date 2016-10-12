@@ -40,6 +40,11 @@ def board_level():
                                "title": board.title,
                                "color": board.color,
                                "listOfCards": []})
+    for board in list_of_boards:
+        for card in Card.select().where(Card.board == board["id"]):
+            board["listOfCards"].append({"id": card.id,
+                                         "title": card.title,
+                                         "color": card.color})
     return json.dumps({"list_of_boards": list_of_boards})
 
 
