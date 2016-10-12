@@ -2,7 +2,7 @@ from flask import Flask, render_template, jsonify
 import json
 from models import *
 
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 app.config.from_object(__name__)
 
 
@@ -17,6 +17,7 @@ def _db_connect():
         db.create_table(Board, safe=True)
         db.create_table(Card, safe=True)
         db.create_table(Meta, safe=True)
+        Meta.create(page_state='board_level')
 
 
 # This hook ensures that the connection is closed when we've finished
@@ -56,7 +57,20 @@ def card_level(board_id):
             list_of_cards.append({"id": card.id,
                                   "title": card.title,
                                   "color": card.color})
-    return json.dumps(list_of_cards)
+    return json.dumps({'list_of_cards': list_of_cards})
+
+
+@app.route('/api/current_board')
+def current_board():
+    current = Meta.get().current_board
+    return json.dumps({'current_board': current})
+
+
+@app.route('/api/page_state')
+def page_state():
+    state = Meta.get().page_state
+    return json.dumps({'page_state': state})
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -22,7 +22,7 @@ var buildCard = function(card_object) {
 
 // **** Draw new card and save to db ****
 var drawNewCard = function(event) {
-    var current = JSON.parse(localStorage.getItem('current_board'));
+    var current = storage.state.loadData('current_board');
     var toAdd = $('#title-input').val();
     $('#title-input').val('');
     if (0 < toAdd.length) {
@@ -35,9 +35,9 @@ var drawNewCard = function(event) {
 
 // **** Draw existing cards for the current board ****
 var drawCards = function() {
-    var page_state = localStorage.getItem('page_state');
+    var page_state = storage.state.loadData('page_state');
     if (page_state === 'card-level') {
-        var current = JSON.parse(localStorage.getItem('current_board'));
+        var current = storage.state.loadData('current_board');
         if (current !== null) {
             var card_list = current.listOfCards;
             for (var i = 0; i < card_list.length; i++) {

@@ -1,6 +1,6 @@
 // **** Draw new-board object and save to db ****
 var drawNewBoard = function(event) {
-        var listOfData = storage.state.loadData();
+        var listOfData = storage.state.loadData('boards');
         var toAdd = $('#title-input').val();
         $('#title-input').val('');
         if (0 < toAdd.length) {

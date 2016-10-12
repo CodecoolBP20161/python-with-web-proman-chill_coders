@@ -25,7 +25,8 @@ function main() {
 
 // **** Initialization for reloading ****
 function state_initializer() {
-    var page_state = localStorage.getItem('page_state');
+    var page_state = storage.state.loadData('page_state');
+    console.log(page_state);
     if (page_state === null) {
         page_state = 'board-level';
         localStorage.setItem('page_state', 'board-level');

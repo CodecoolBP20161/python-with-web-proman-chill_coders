@@ -16,7 +16,7 @@ var buildBoard = function(board_object) {
                      board_object.id + '">' +
                      '<div class="board-show">' +
                      '<div class="thumbnail tile tile-medium ' + board_object.color + '">' +
-                     '<h1 class="tile-text"> ' + board_object.title + ' </h1>' +
+                     '<h1 class="tile-text">' + board_object.title + ' </h1>' +
                      '</div>' +
                      '</div>' +
                      '<div class="board-edit">' +
@@ -32,15 +32,15 @@ var buildBoard = function(board_object) {
 
 // **** Displaying boards --- loading data from storage place ****
 var drawBoards = function() {
-    var page_state = localStorage.getItem('page_state');
+    var page_state = storage.state.loadData('page_state');
     if (page_state === 'board-level') {
-        var listOfData = storage.state.loadData();
+        var listOfData = storage.state.loadData('boards');
         for (var i = 0; i < listOfData.length; i++) {
             $('.board-list').append(buildBoard(listOfData[i]));
         }
     }
     else if (page_state === 'card-level') {
-        var current = JSON.parse(localStorage.getItem('current_board'));
+        var current = storage.state.loadData('current_board');
         $('.board-list').append(buildBoard(current));
         $( '.board-element' ).children('.board-show').hide(0, function () {
             $(this).next().fadeIn(50);
@@ -110,7 +110,7 @@ function boardGrow(event) {
 // **** Gets board object from local storage for a board node ****
 function getBoardObject(element) {
     var board_id = parseInt(element.attr('id'), 10);
-    var board_list = storage.state.loadData();
+    var board_list = storage.state.loadData('boards');
     for (var i = 0; i<board_list.length; i++) {
         if (board_list[i].id === board_id) {
             return board_list[i];
