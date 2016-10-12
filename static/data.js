@@ -57,3 +57,6 @@ function LocalStorageManager(keyword) {
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
     };
 }
+
+
+// **** Implementation1 --- with browser's localStorage ****

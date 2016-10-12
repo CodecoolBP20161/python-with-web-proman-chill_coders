@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+import json
 from models import *
 
 app = Flask(__name__, template_folder='templates')
@@ -33,17 +34,24 @@ def index():
 
 @app.route('/api/boards')
 def board_level():
-    # need a class, which handles jsonifying Board objects
-    data = 'JSON like: \'listOfBoards\': [Board objects]'
-    return data
+    list_of_boards = []
+    for board in Board.select():
+        list_of_boards.append({"id": board.id,
+                               "title": board.title,
+                               "color": board.color,
+                               "listOfCards": []})
+    return json.dumps({"list_of_boards": list_of_boards})
 
 
-@app.route('/api/<board_id>/cards')
+@app.route('/api/<board_id>/cards/')
 def card_level(board_id):
-    # according to board_id it sends back the listOfCards attribute
-    Card.select().where(Card.board.id == board_id)
-    data = 'JSON like: \'listOfCards\': [Card objects]'
-    return data
+    list_of_cards = []
+    for card in Card.select():
+        if card.board.id == int(board_id):
+            list_of_cards.append({"id": card.id,
+                                  "title": card.title,
+                                  "color": card.color})
+    return json.dumps(list_of_cards)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
