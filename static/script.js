@@ -3,6 +3,20 @@
 // According to State Pattern design
 
 
+// **** Initialization for reloading ****
+function state_initializer() {
+    var page_state = storage.state.loadData('page_state');
+    console.log('1 ' + page_state);
+
+    if (page_state === null) {
+        page_state = 'board-level';
+        localStorage.setItem('page_state', 'board-level');
+    }
+    return page_state
+}
+
+
+
 // **** MAIN ****
 function main() {
     $(document).ready(function () {
@@ -23,16 +37,7 @@ function main() {
 }
 
 
-// **** Initialization for reloading ****
-function state_initializer() {
-    var page_state = storage.state.loadData('page_state');
-    console.log(page_state);
-    if (page_state === null) {
-        page_state = 'board-level';
-        localStorage.setItem('page_state', 'board-level');
-    }
-    return page_state
-}
+
 
 
 
