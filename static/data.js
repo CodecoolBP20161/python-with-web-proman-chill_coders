@@ -116,5 +116,5 @@ function DatabaseStorageManager() {
 
 // for Implementation2
 storage.changeState(new DatabaseStorageManager());
-console.log(storage.state.loadData('page_level'));
+// console.log(storage.state.loadData('page_level'));
 // storage.changeState(new LocalStorageManager('list_of_boards'));
