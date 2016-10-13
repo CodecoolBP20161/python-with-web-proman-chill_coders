@@ -35,7 +35,6 @@ var drawBoards = function() {
     var page_state = localStorage.getItem('page_state');
     if (page_state === 'board-level') {
         var listOfData = storage.state.loadData('boards');
-        console.log(listOfData);
         for (var i = 0; i < listOfData.length; i++) {
             $('.board-list').append(buildBoard(listOfData[i]));
         }
@@ -111,8 +110,9 @@ function boardGrow(event) {
 // **** Gets board object from local storage for a board node ****
 function getBoardObject(element) {
     var board_id = parseInt(element.attr('id'), 10);
+    console.log(board_id);
     var board_list = storage.state.loadData('boards');
-    for (var i = 0; i<board_list.length; i++) {
+    for (var i = 0; i < board_list.length; i++) {
         if (board_list[i].id === board_id) {
             return board_list[i];
         }

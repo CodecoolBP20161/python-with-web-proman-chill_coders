@@ -86,7 +86,6 @@ function DatabaseStorageManager() {
                 if (listOfCards === null) {
                     return []
                 }
-                console.log(listOfCards);
                 return listOfCards;
             });
         }
@@ -101,7 +100,9 @@ function DatabaseStorageManager() {
                 return response.responseJSON.list_of_boards
             }
         }
-    }
+    };
+    
+    // saving data into database
     this.saveData = function (board, card) {
         // var listOfObjects = this.loadData('boards');
         var my_json;
@@ -113,7 +114,9 @@ function DatabaseStorageManager() {
         else {
             card.owner = board.id;
             my_json = {json_str: card};
-            url_str += "newcard"
+            url_str += "newcard";
+            board.listOfCards.push(card);
+            localStorage.setItem('current_board', JSON.stringify(board));
         }
         $.ajax({
             type : "POST",
@@ -124,9 +127,3 @@ function DatabaseStorageManager() {
         });
     };
 }
-
-
-// for Implementation2
-//storage.changeState(new DatabaseStorageManager());
-// console.log(storage.state.loadData('page_level'));
-// storage.changeState(new LocalStorageManager('list_of_boards'));

@@ -6,6 +6,7 @@ function Card (id, owner, title) {
     this.color = colorSelect(this);
 }
 
+
 // **** Build html node from card object ****
 var buildCard = function(card_object) {
     var card_html = '<div class="card-element" id="' +
