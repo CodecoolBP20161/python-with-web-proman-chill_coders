@@ -46,37 +46,27 @@ var drawBoards = function () {
 };
 
 
-// **** Select Color for boards based on board id ****
-var colorSelect = function (object) {
-    var boardColor = "tile-pink";
-    switch (object.id % 7) {
-        case 0:
-            boardColor = "tile-green";
-            break;
-        case 1:
-            boardColor = "tile-yellow";
-            break;
-        case 2:
-            boardColor = "tile-purple";
-            break;
-        case 3:
-            boardColor = "tile-red";
-            break;
-        case 4:
-            boardColor = "tile-orange";
-            break;
-        case 5:
-            boardColor = "tile-blue";
-            break;
-        case 6:
-            boardColor = "tile-pink";
-            break;
-        default:
-            boardColor = "tile-pink";
-            break;
+// **** Draw new-board object and save to db ****
+var drawNewBoard = function(event) {
+    console.log('in drawNewBoard');
+    event.preventDefault();
+    var listOfData = storage.state.loadData();
+    var toAdd = $('#title-input').val();
+    console.log(toAdd);
+    if (0 < toAdd.length) {
+        var board = new Board(listOfData.length, toAdd);
+        storage.state.saveData(board);
+        $('.board-list').append(BoardView(board)).hide();
+        $( '.board-list' ).last().on("click", function (event) {
+            boardEventsBL(event);
+        });
+        $( '.board-list' ).last().fadeIn(300);
+        resetPlaceholder();
     }
-    return boardColor
 };
+
+
+
 
 
 // **** Remove all boards ****
@@ -122,4 +112,37 @@ function boardMenuClose(event) {
     element.children('.board-menu').hide(0, function () {
         $(this).prev().fadeIn(300);
     });
+};
+
+
+// **** Select Color for boards based on board id ****
+var colorSelect = function (object) {
+    var boardColor = "tile-pink";
+    switch (object.id % 7) {
+        case 0:
+            boardColor = "tile-green";
+            break;
+        case 1:
+            boardColor = "tile-yellow";
+            break;
+        case 2:
+            boardColor = "tile-purple";
+            break;
+        case 3:
+            boardColor = "tile-red";
+            break;
+        case 4:
+            boardColor = "tile-orange";
+            break;
+        case 5:
+            boardColor = "tile-blue";
+            break;
+        case 6:
+            boardColor = "tile-pink";
+            break;
+        default:
+            boardColor = "tile-pink";
+            break;
+    }
+    return boardColor
 };

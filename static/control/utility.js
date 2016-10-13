@@ -10,7 +10,7 @@ function getBoardObject(element) {
 }
 
 
-// **** Initialization for reloading ****
+// **** Initialization for page load ****
 function stateInitializer() {
     var pageState = localStorage.getItem('pageState');
     if (pageState === null) {

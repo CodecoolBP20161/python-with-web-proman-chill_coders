@@ -9,22 +9,11 @@ var storage = new State(new LocalStorageManager('listOfBoards'));
 // for Implementation2
 // fromStorage.changeState(Sprint2Stuff());
 
+
 // **** MAIN ****
 function main() {
     $(document).ready(function () {
-        // initialize page state
-        var pageState = stateInitializer();
-
-        if (pageState === 'board-level') {
-            drawBoards();
-            boardEvents();
-        }
-        else if (pageState === 'card-level') {
-            drawBoards();
-            drawCards();
-            cardEvents();
-        }
-        newBoardEffects();
+        loadPage();
     });
 }
 
