@@ -94,8 +94,6 @@ def save_new_board():
 
 @app.route('/api/newcard', methods=["POST"])
 def save_new_card():
-    print (type(request.get_json()["json_str"]))
-    print (request.get_json()["json_str"])
     save_to_db(request.get_json()["json_str"], "card")
     return 'ok'
 

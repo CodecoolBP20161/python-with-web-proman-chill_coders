@@ -4,7 +4,7 @@ var drawNewBoard = function(event) {
         var toAdd = $('#title-input').val();
         $('#title-input').val('');
         if (0 < toAdd.length) {
-            var board = new Board(listOfData.length, toAdd);
+            var board = new Board(listOfData.length + 1, toAdd);
             storage.state.saveData(board);
             $('.board-list').append(buildBoard(board));
         }
