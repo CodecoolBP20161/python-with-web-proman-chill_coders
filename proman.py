@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import json
 from models import *
 
@@ -24,11 +24,9 @@ def db_to_json():
 
 def save_to_db(my_json, entity="board"):
     if (entity == "board"):
-        curr_board = my_json["board"]
-        Board.create(title=curr_board["title"], color=curr_board["color"])
+        Board.create(title=my_json["title"], color=my_json["color"])
     elif (entity == "card"):
-        curr_card = my_json["card"]
-        Card.create(title=curr_card["title"], color=curr_card["color"], board=curr_card["board"])
+        Card.create(title=my_json["title"], color=my_json["color"], board=my_json["owner"])
 
 
 def update_db(my_json, entity="board"):
@@ -51,13 +49,11 @@ def update_db(my_json, entity="board"):
 @app.before_request
 def _db_connect():
     db.connect()
-    if Board.table_exists() and Card.table_exists() and Meta.table_exists():
+    if Board.table_exists() and Card.table_exists():
         pass
     else:
         db.create_table(Board, safe=True)
         db.create_table(Card, safe=True)
-        db.create_table(Meta, safe=True)
-        Meta.create(page_state='board_level')
 
 
 # This hook ensures that the connection is closed when we've finished
@@ -89,6 +85,19 @@ def card_level(board_id):
                                   "color": card.color})
     return json.dumps({'list_of_cards': list_of_cards})
 
+
+@app.route('/api/newboard', methods=["POST"])
+def save_new_board():
+    save_to_db(request.get_json()["json_str"])
+    return 'ok'
+
+
+@app.route('/api/newcard', methods=["POST"])
+def save_new_card():
+    print (type(request.get_json()["json_str"]))
+    print (request.get_json()["json_str"])
+    save_to_db(request.get_json()["json_str"], "card")
+    return 'ok'
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

@@ -102,10 +102,31 @@ function DatabaseStorageManager() {
             }
         }
     }
+    this.saveData = function (board, card) {
+        // var listOfObjects = this.loadData('boards');
+        var my_json;
+        var url_str = "/api/";
+        if (typeof(card) === 'undefined') {
+            my_json = {json_str: board};
+            url_str += "newboard";
+        }
+        else {
+            card.owner = board.id;
+            my_json = {json_str: card};
+            url_str += "newcard"
+        }
+        $.ajax({
+            type : "POST",
+            url : url_str,
+            data: JSON.stringify(my_json),
+            contentType: 'application/json',
+            dataType: 'json'
+        });
+    };
 }
 
 
 // for Implementation2
-storage.changeState(new DatabaseStorageManager());
+//storage.changeState(new DatabaseStorageManager());
 // console.log(storage.state.loadData('page_level'));
 // storage.changeState(new LocalStorageManager('list_of_boards'));
