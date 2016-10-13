@@ -10,17 +10,16 @@ function loadPage() {
         if (pageState === 'board-level') {
             drawBoards();
             setBoardLevel();
-            setBoardAdder()
+            setAdder()
 
         }
         else if (pageState === 'card-level') {
             drawBoards();
             drawCards();
             setCardLevel();
-            setCardAdder()
+            setAdder()
         }
 
-        setBoardAdder();
         newBoardEvents();
 }
 
@@ -29,28 +28,19 @@ function loadPage() {
 // **** ADDER  ****
 //
 // Set the adder to add boards
-function setBoardAdder() {
+function setAdder() {
     var pageState = stateInitializer();
-    if (pageState === 'board-level') {
-        $('#make-new').off();
-        $('#make-new').on("click", function(event){
-            if (newBoard.changed) {
+
+    $('#make-new').off();
+    $('#make-new').on("click", function(event){
+        if (newBoard.changed) {
+            if (pageState === 'board-level') {
                 drawNewBoard(event);
+            } else if (pageState === 'card-level') {
+                drawNewCard(event);
             }
-        })
-    }
-}
-
-
-// Set the adder to add cards
-function setCardAdder() {
-    var pageState = stateInitializer();
-    if (pageState === 'card-level') {
-        $('#make-new').off()
-        $('#make-new').on("click", function (event) {
-            drawNewCard(event)
-        })
-    }
+        }
+    });
 }
 
 
@@ -59,15 +49,15 @@ var newBoardEvents = function() {
     $('#new-board-tile').off();
 
     $('#new-board-tile').mouseenter(function (event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
+        //event.preventDefault();
+        //event.stopImmediatePropagation();
 
-        $(this).children('#title-default').fadeOut(200); // why doesn't this work?
-        $(this).children('#adder-content').empty();
-        $(this).children('#adder-content').append(newBoard.edit).children('#title-input').hide().fadeIn(400);
-
-        setBoardAdder();
-        getPlaceholder();
+        $(this).find('#title-default').fadeOut(200, function () {
+            $('#new-board-tile').find('#adder-content').empty();
+            $('#new-board-tile').find('#adder-content').append(newBoard.edit);
+            getPlaceholder();
+            setAdder();
+        });
 
         $(this).keyup(function (event) {
             savePlaceholder(event);
@@ -75,25 +65,29 @@ var newBoardEvents = function() {
         });
 
     $('#new-board-tile').mouseleave(function (event) {
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        savePlaceholder(event);
-
-        $(this).children('#title-input').fadeOut(200); // why doesn't this work?
-        $(this).children('#adder-content').empty();
-        $(this).children('#adder-content').append(newBoard.show).children('#title-default').hide().fadeIn(400);
+        //event.preventDefault();
+        //event.stopImmediatePropagation();
+        $(this).find('#title-input').fadeOut(200, function(){
+            $('#new-board-tile').find('#adder-content').empty();
+            $('#new-board-tile').find('#adder-content').append(newBoard.show);
+        });
         $(this).off("keyup");
     });
 };
 
 
 var savePlaceholder = function (event) {
+    var pageState = stateInitializer();
     var placeholder = $('#title-input').val();
     if (0 < placeholder.length) {
         newBoard.changed = true;
         newBoard.placeholder = placeholder;
         if ( event.which == 13 ) {
-            drawNewBoard(event);
+            if (pageState === 'card-level') {
+                drawNewCard(event);
+            } else if (pageState === 'board-level') {
+                drawNewBoard(event);
+            }
         }
     }
 };

@@ -14,6 +14,7 @@ var CardView = function(cardObject) {
 
 // **** Draw new card and save to db ****
 var drawNewCard = function(event) {
+    console.log('drawNewCard');
     event.preventDefault();
     var current = JSON.parse(localStorage.getItem('currentBoard'));
     var toAdd = $('#title-input').val();
@@ -22,12 +23,13 @@ var drawNewCard = function(event) {
         var card = new Card(current.listOfCards.length, current.id, toAdd);
         console.log(card);
         storage.state.saveData(current, card);
-        $('.card-list').append(CardView(card)).hide();
-        $( '.card-list' ).last().on("click", function (event) {
-            //cardEvents(event);
+        $('.card-list').append(CardView(card));
+        $( '.card-element' ).last().on("click", function (event) {
+            cardEvents(event);
         });
-        $( '.card-list' ).last().fadeIn(300);
-    }
+        $( '.card-element' ).last().hide().fadeIn(400);
+        resetPlaceholder();
+    };
 };
 
 
@@ -51,4 +53,4 @@ var drawCards = function() {
 // **** Removes all cards ****
 function removeCards() {
     $('.card-element').remove();
-}
+};

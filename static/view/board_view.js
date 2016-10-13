@@ -40,7 +40,7 @@ var drawBoards = function () {
         var current = JSON.parse(localStorage.getItem('currentBoard'));
         $('.board-list').append(BoardView(current));
         $('.board-element').children('.board-show').hide(0, function () {
-            $(this).next().fadeIn(50);
+            $(this).next().fadeIn(400);
         });
     }
 };
@@ -56,16 +56,14 @@ var drawNewBoard = function(event) {
     if (0 < toAdd.length) {
         var board = new Board(listOfData.length, toAdd);
         storage.state.saveData(board);
-        $('.board-list').append(BoardView(board)).hide();
-        $( '.board-list' ).last().on("click", function (event) {
+        $('.board-list').append(BoardView(board));
+        $( '.board-element' ).last().on("click", function (event) {
             boardEventsBL(event);
         });
-        $( '.board-list' ).last().fadeIn(300);
+        $( '.board-element' ).last().hide().fadeIn(400);
         resetPlaceholder();
     }
 };
-
-
 
 
 
