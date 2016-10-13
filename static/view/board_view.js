@@ -98,18 +98,16 @@ function boardGrow(event) {
 // **** Open a board's menu ****
 function boardMenuOpen(event) {
     var element = $(event.target).closest('.board-element');
-    element.children('.board-edit').hide(0, function () {
-        $(this).next().fadeIn(300);
-    });
+    element.children('.board-edit').hide();
+    element.children('.board-menu').show();
 };
 
 
 // **** Close a board's menu ****
 function boardMenuClose(event) {
     var element = $(event.target).closest('.board-element');
-    element.children('.board-menu').hide(0, function () {
-        $(this).prev().fadeIn(300);
-    });
+    element.children('.board-menu').hide();
+    element.children('.board-edit').show();
 };
 
 

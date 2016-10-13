@@ -16,7 +16,7 @@ function loadPage() {
         else if (pageState === 'card-level') {
             drawBoards();
             drawCards();
-            setCardLevel();
+            boardEventsCL();
             setAdder()
         }
 
@@ -135,22 +135,11 @@ function boardEventsBL (event) {
 //
 // **** CARD LEVEL ****
 //
-// find all card nodes and add events to it, find the single board element and add events to it
-function setCardLevel() {
-    $( '.card-element' ).off();
-    $( '.card-element' ).on("click", function (event) {
-        cardEvents(event);
-    });
-    $( '.board-element' ).off();
-    $( '.board-element' ).on("click", function (event) {
-        boardEventsCL(event);
-    });
-}
-
-
 // add events to the board node
-function boardEventsCL () {
+function boardEventsCL (event) {
     // boards
+    console.log('boardEventsCL');
+    $('.back-to-boards').off();
     $('.back-to-boards').on("click", function(event){
         removeCards();
         removeBoards();
@@ -160,10 +149,12 @@ function boardEventsCL () {
 
     // Open and close board menu
     $('#open-menu').on("click", function(event){
+        console.log('open click');
         $('#open-menu').prop('id', "close-menu");
         boardMenuOpen(event);
     });
     $('#close-menu').on("click", function(event){
+        console.log('close click');
         $('#close-menu').prop('id', "open-menu");
         boardMenuClose(event);
     });
