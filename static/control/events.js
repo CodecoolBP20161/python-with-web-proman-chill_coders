@@ -129,6 +129,8 @@ function boardEventsBL (event) {
     removeOtherBoards(event);
     boardGrow(event);
     localStorage.setItem('pageState', 'card-level');
+    drawCards();
+    boardEventsCL();
 };
 
 
@@ -148,11 +150,13 @@ function boardEventsCL (event) {
     });
 
     // Open and close board menu
+    $('#open-menu').off();
     $('#open-menu').on("click", function(event){
         console.log('open click');
         $('#open-menu').prop('id', "close-menu");
         boardMenuOpen(event);
     });
+    $('#close-menu').off();
     $('#close-menu').on("click", function(event){
         console.log('close click');
         $('#close-menu').prop('id', "open-menu");
