@@ -1,12 +1,6 @@
 //
 // **** State Settings ****
 //
-// for Implementation1
-var storage = new State(new LocalStorageManager('list_of_boards'));
-// for Implementation2
-// fromStorage.changeState(Sprint2Stuff());
-
-
 
 // **** State Object Constructor ****
 function State (state) {
@@ -41,18 +35,21 @@ function LocalStorageManager(keyword) {
 
     // saves data into localStorage
     this.saveData = function (board, card) {
+        console.log(card, ' inside storage');
         var listOfObjects = this.loadData();
         if (typeof(card) === 'undefined') {
+            console.log('inside if');
             listOfObjects.push(board);
         }
         else {
+            console.log('inside else');
             for (var i = 0; i < listOfObjects.length; i++) {
                 if (listOfObjects[i].id === board.id) {
                     board.listOfCards.push(card);
                     listOfObjects[i].listOfCards.push(card);
                 }
             }
-            localStorage.setItem('current_board', JSON.stringify(board));
+            localStorage.setItem('currentBoard', JSON.stringify(board));
         }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
     };
