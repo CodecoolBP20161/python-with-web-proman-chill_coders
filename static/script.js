@@ -5,8 +5,7 @@
 
 // **** Initialization for reloading ****
 function state_initializer() {
-    var page_state = storage.state.loadData('page_state');
-    console.log('1 ' + page_state);
+    var page_state = localStorage.getItem('page_state');
 
     if (page_state === null) {
         page_state = 'board-level';
@@ -16,11 +15,11 @@ function state_initializer() {
 }
 
 
-
 // **** MAIN ****
 function main() {
     $(document).ready(function () {
         // initialize page state
+
         var page_state = state_initializer();
 
         if (page_state === 'board-level') {
@@ -35,10 +34,6 @@ function main() {
         newBoardEffects();
     });
 }
-
-
-
-
 
 
 main();

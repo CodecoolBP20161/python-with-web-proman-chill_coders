@@ -32,15 +32,16 @@ var buildBoard = function(board_object) {
 
 // **** Displaying boards --- loading data from storage place ****
 var drawBoards = function() {
-    var page_state = storage.state.loadData('page_state');
+    var page_state = localStorage.getItem('page_state');
     if (page_state === 'board-level') {
         var listOfData = storage.state.loadData('boards');
+        console.log(listOfData);
         for (var i = 0; i < listOfData.length; i++) {
             $('.board-list').append(buildBoard(listOfData[i]));
         }
     }
     else if (page_state === 'card-level') {
-        var current = storage.state.loadData('current_board');
+        var current = JSON.parse(localStorage.getItem('current_board'));
         $('.board-list').append(buildBoard(current));
         $( '.board-element' ).children('.board-show').hide(0, function () {
             $(this).next().fadeIn(50);
@@ -90,7 +91,7 @@ function removeBoards() {
 function removeOtherBoards(event) {
     localStorage.setItem('page_state', 'card-level');
     var element = $( event.target ).closest('.board-element');
-    removeBoards()
+    removeBoards();
     $('.board-list').append(element);
     // saves current board to localStorage
     var cur_board = getBoardObject(element);
@@ -105,7 +106,7 @@ function boardGrow(event) {
     element.children('.board-show').hide(0, function () {
         $(this).next().fadeIn(50);
     });
-};
+}
 
 // **** Gets board object from local storage for a board node ****
 function getBoardObject(element) {

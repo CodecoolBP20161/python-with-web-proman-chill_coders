@@ -21,9 +21,3 @@ class Card(BaseModel):
     title = CharField()
     color = CharField()
     board = ForeignKeyField(Board)
-
-
-class Meta(BaseModel):
-    """Stores currentBoard and pageState variables."""
-    current_board = IntegerField(null=True, default=None)
-    page_state = CharField()

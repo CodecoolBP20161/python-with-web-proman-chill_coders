@@ -1,9 +1,9 @@
 from models import *
 
 
-db.drop_tables([Board, Card, Meta])
+db.drop_tables([Board, Card])
 db.connect()
-db.create_tables([Board, Card, Meta], safe=True)
+db.create_tables([Board, Card], safe=True)
 Board.create(title='a', color='tile-green')
 Board.create(title='b', color='tile-green')
 Board.create(title='c', color='tile-green')

@@ -10,7 +10,7 @@ var drawNewBoard = function(event) {
         }
 };
 
-// **** Eeffects for add new board tile ****
+// **** Effects for add new board tile ****
 var newBoardEffects = function() {
     $('#new-board-tile').mouseenter(function () {
         $(this).children('#show').hide();

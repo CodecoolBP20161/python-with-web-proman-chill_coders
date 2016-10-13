@@ -80,43 +80,29 @@ function DatabaseStorageManager() {
 
     // loading data from database
     this.loadData = function (option, filter_id) {
-        console.log('2' + option);
-        console.log('3' + filter_id);
         if (filter_id) {
             $.getJSON('http://0.0.0.0:5000/api/' + filter_id.toString() + '/cards', function (response) {
                 var listOfCards = response.list_of_cards;
+                if (listOfCards === null) {
+                    return []
+                }
+                console.log(listOfCards);
                 return listOfCards;
             });
         }
         else if (typeof(filter_id) === 'undefined') {
             if (option == 'boards') {
-                $.getJSON('http://0.0.0.0:5000/api/boards', function (response) {
-                    var listOfBoards = response.list_of_boards;
-                    return listOfBoards;
+                var response = $.ajax({
+                    type: 'GET',
+                    url: '/api/boards',
+                    dataType: 'json',
+                    async: false
                 });
-            }
-            else if (option == 'page_state') {
-                $.getJSON('http://0.0.0.0:5000/api/page_state', function (response) {
-                    var page_state = response.page_state;
-                    console.log('4' + page_state + 'after getJSON');
-                    return page_state;
-                });
-            }
-            else if (option == 'current_board') {
-                $.getJSON('http://0.0.0.0:5000/api/current_board', function (response) {
-                    var current_board = response.current_board;
-                    return current_board;
-                });
+                return response.responseJSON.list_of_boards
             }
         }
-    };
+    }
 }
-
-
-// // saves data into localStorage
-// this.saveData = function () {
-// };
-// // IDE KELL IRÁNYÍTANI
 
 
 // for Implementation2
