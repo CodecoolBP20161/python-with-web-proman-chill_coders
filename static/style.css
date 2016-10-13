@@ -1,6 +1,7 @@
 
 .board-list {
     word-wrap: break-word;
+    float: left;
 }
 
 .tile {
@@ -33,8 +34,9 @@
     display: none;
 }
 
-#new-board-tile{
+.new-board{
     opacity: 0.75;
+    float: left;
 }
 
 .board-element{
@@ -55,4 +57,16 @@
 
 #back-to-boards{
     text-align: left;
+}
+
+li {
+    list-style: none;
+    float: left;
+}
+
+.placeholder {
+    background-color: inherit;
+    box-shadow: inherit;
+    width: inherit;
+    height: inherit;
 }

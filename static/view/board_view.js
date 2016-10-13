@@ -1,6 +1,21 @@
 // **** Board object to html builder ****
-var BoardView = function (boardObject) {
-    var boardHtml = '<div class="board-element" id="' +
+var BoardView = function (boardObject, option) {
+
+    this.dragSet = function (option) {
+        if (option === 'drag') {
+            console.log('drag');
+            this.setting = 'li';
+        } else {
+            this.setting = 'div';
+            console.log('nodrag');
+        }
+    };
+
+    this.dragSet(option);
+    //this.setting = this.dragSet(option);
+    console.log(this.setting);
+
+    this.boardHtml = '<' + this.setting + ' class="board-element" id="' +
         boardObject.id + '">' +
         '<div class="board-show">' +
         '<div class="thumbnail tile tile-medium ' + boardObject.color + '">' +
@@ -22,8 +37,7 @@ var BoardView = function (boardObject) {
         '<h1 class="tile-text" id="close-menu">This is where menu items will be when implemented</h1>' +
         '</div>' +
         '</div>' +
-        '</div>';
-    return boardHtml
+        '</' + this.setting + '>';
 };
 
 
@@ -33,12 +47,14 @@ var drawBoards = function () {
     if (pageState === 'board-level') {
         var listOfData = storage.state.loadData();
         for (var i = 0; i < listOfData.length; i++) {
-            $('.board-list').append(BoardView(listOfData[i]));
+            var newBoard = new BoardView(listOfData[i], 'drag');
+            $('.board-list').append(newBoard.boardHtml);
         }
     }
     else if (pageState === 'card-level') {
         var current = JSON.parse(localStorage.getItem('currentBoard'));
-        $('.board-list').append(BoardView(current));
+        var newBoard = new BoardView(current, 'nodrag');
+        $('.board-list').append(newBoard.boardHtml);
         $('.board-element').children('.board-show').hide(0, function () {
             $(this).next().fadeIn(400);
         });
@@ -56,7 +72,8 @@ var drawNewBoard = function(event) {
     if (0 < toAdd.length) {
         var board = new Board(listOfData.length, toAdd);
         storage.state.saveData(board);
-        $('.board-list').append(BoardView(board));
+        var newBoard = new BoardView(board, 'drag');
+        $('.board-list').append(newBoard.boardHtml);
         $( '.board-element' ).last().on("click", function (event) {
             boardEventsBL(event);
         });
@@ -76,23 +93,24 @@ function removeBoards() {
 // **** removes other boards and saves current board object to localStorage ****
 function removeOtherBoards(event) {
     localStorage.setItem('pageState', 'card-level');
-    var element = $(event.target).closest('.board-element');
-    removeBoards();
-    $('.board-list').append(element);
+
     // saves current board to localStorage
+    var element = $(event.target).closest('.board-element');
     var curBoard = getBoardObject(element);
     localStorage.setItem('currentBoard', JSON.stringify(curBoard));
     localStorage.setItem('pageState', 'card-level');
-}
 
-
-// **** Change board tile to wide ****
-function boardGrow(event) {
-    var element = $(event.target).closest('.board-element');
-    element.children('.board-show').hide(0, function () {
+    // redraw the current board
+    removeBoards();
+    var current = JSON.parse(localStorage.getItem('currentBoard'));
+    var newBoard = new BoardView(current, 'nodrag');
+    $('.board-list').append(newBoard.boardHtml);
+    $('.board-element').last().find('.board-show').hide(0, function () {
         $(this).next().fadeIn(300);
     });
-};
+
+
+}
 
 
 // **** Open a board's menu ****

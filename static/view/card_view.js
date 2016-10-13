@@ -1,13 +1,13 @@
 // **** Build html node from card object ****
 var CardView = function(cardObject) {
-    var cardHtml = '<div class="card-element" id="' +
+    var cardHtml = '<li class="card-element" id="' +
                      cardObject.id + '">' +
                      '<div class="card-show">' +
                      '<div class="thumbnail tile tile-medium ' + cardObject.color + '">' +
                      '<h1 class="tile-text"> ' + cardObject.title + ' </h1>' +
                      '</div>' +
                      '</div>' +
-                     '</div>';
+                     '</li>';
     return cardHtml
 };
 

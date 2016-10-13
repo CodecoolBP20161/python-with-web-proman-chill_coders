@@ -127,7 +127,6 @@ function setBoardLevel() {
 // add events to a board node
 function boardEventsBL (event) {
     removeOtherBoards(event);
-    boardGrow(event);
     localStorage.setItem('pageState', 'card-level');
     drawCards();
     boardEventsCL();
@@ -164,3 +163,23 @@ function boardEventsCL (event) {
     });
 };
 
+//
+// **** DRAG AND DROP ****
+//
+// main function for Jquery UI
+$(function () {
+    $("ul").sortable({
+        items: 'li',
+        dropOnEmpty: false,
+        scroll: false,
+        helper: 'clone',
+        zIndex: 9999,
+        tolerance: 'pointer',
+        placeholder: 'placeholder thumbnail tile tile-medium',
+        forceHelperSize: true,
+        update: function (event, ui) {
+            var order = $("ul").sortable('toArray');
+            console.log(order)
+        }
+    })
+});
