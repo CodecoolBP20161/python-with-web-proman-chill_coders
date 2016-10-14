@@ -14,14 +14,12 @@ var CardView = function(cardObject) {
 
 // **** Draw new card and save to db ****
 var drawNewCard = function(event) {
-    console.log('drawNewCard');
     event.preventDefault();
     var current = JSON.parse(localStorage.getItem('currentBoard'));
     var toAdd = $('#title-input').val();
     $('#title-input').val('');
     if (0 < toAdd.length) {
         var card = new Card(current.listOfCards.length, current.id, toAdd);
-        console.log(card);
         storage.state.saveData(current, card);
         $('.card-list').append(CardView(card));
         $( '.card-element' ).last().on("click", function (event) {

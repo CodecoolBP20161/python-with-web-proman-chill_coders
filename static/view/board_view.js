@@ -3,17 +3,14 @@ var BoardView = function (boardObject, option) {
 
     this.dragSet = function (option) {
         if (option === 'drag') {
-            console.log('drag');
             this.setting = 'li';
         } else {
             this.setting = 'div';
-            console.log('nodrag');
         }
     };
 
     this.dragSet(option);
     //this.setting = this.dragSet(option);
-    console.log(this.setting);
 
     this.boardHtml = '<' + this.setting + ' class="board-element" id="' +
         boardObject.id + '">' +
@@ -64,11 +61,9 @@ var drawBoards = function () {
 
 // **** Draw new-board object and save to db ****
 var drawNewBoard = function(event) {
-    console.log('in drawNewBoard');
     event.preventDefault();
     var listOfData = storage.state.loadData('boards');
     var toAdd = $('#title-input').val();
-    console.log(toAdd);
     if (0 < toAdd.length) {
         var board = new Board(listOfData.length, toAdd);
         storage.state.saveData(board);
