@@ -7,7 +7,7 @@
 // for Implementation1
 var storage = new State(new LocalStorageManager('listOfBoards'));
 // for Implementation2
-// fromStorage.changeState(Sprint2Stuff());
+// storage.changeState(new DatabaseStorageManager());
 
 
 // **** MAIN ****

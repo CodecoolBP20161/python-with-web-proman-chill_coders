@@ -6,7 +6,7 @@ function NewBoard (placeholder) {
     this.edit = '<input id="title-input" type="text" name="title-input" class="form-control input-lg"'+
     ' placeholder="' + this.placeholder + '" maxlength="9">' +
     '<i id="make-new" class="fa fa-4x fa-plus-square"></i>';
-};
+}
 
 
 // super ugly global variable
