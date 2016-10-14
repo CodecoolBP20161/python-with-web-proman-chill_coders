@@ -29,7 +29,7 @@ var drawNewCard = function(event) {
         });
         $( '.card-element' ).last().hide().fadeIn(400);
         resetPlaceholder();
-    };
+    }
 };
 
 
@@ -53,4 +53,4 @@ var drawCards = function() {
 // **** Removes all cards ****
 function removeCards() {
     $('.card-element').remove();
-};
+}

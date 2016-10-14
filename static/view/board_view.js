@@ -45,7 +45,7 @@ var BoardView = function (boardObject, option) {
 var drawBoards = function () {
     var pageState = localStorage.getItem('pageState');
     if (pageState === 'board-level') {
-        var listOfData = storage.state.loadData();
+        var listOfData = storage.state.loadData('boards');
         for (var i = 0; i < listOfData.length; i++) {
             var newBoard = new BoardView(listOfData[i], 'drag');
             $('.board-list').append(newBoard.boardHtml);
@@ -118,7 +118,7 @@ function boardMenuOpen(event) {
     var element = $(event.target).closest('.board-element');
     element.children('.board-edit').hide();
     element.children('.board-menu').show();
-};
+}
 
 
 // **** Close a board's menu ****
@@ -126,7 +126,7 @@ function boardMenuClose(event) {
     var element = $(event.target).closest('.board-element');
     element.children('.board-menu').hide();
     element.children('.board-edit').show();
-};
+}
 
 
 // **** Select Color for boards based on board id ****

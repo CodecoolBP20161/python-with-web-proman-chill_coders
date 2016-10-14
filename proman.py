@@ -72,7 +72,7 @@ def index():
 @app.route('/api/boards')
 def board_level():
     list_of_boards = db_to_json()
-    return json.dumps({"list_of_boards": list_of_boards})
+    return json.dumps({"listOfBoards": list_of_boards})
 
 
 @app.route('/api/<board_id>/cards/')
@@ -83,7 +83,7 @@ def card_level(board_id):
             list_of_cards.append({"id": card.id,
                                   "title": card.title,
                                   "color": card.color})
-    return json.dumps({'list_of_cards': list_of_cards})
+    return json.dumps({'listOfCards': list_of_cards})
 
 
 @app.route('/api/newboard', methods=["POST"])

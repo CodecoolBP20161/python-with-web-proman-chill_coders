@@ -1,10 +1,6 @@
 //
 // **** State Settings ****
 //
-// for Implementation1
-var storage = new State(new LocalStorageManager('listOfBoards'));
-// for Implementation2
-// storage.changeState(new DatabaseStorageManager());
 
 
 // **** State Object Constructor ****
@@ -86,7 +82,7 @@ function DatabaseStorageManager() {
                 if (listOfCards === null) {
                     return []
                 }
-                return list_of_cards;
+                return listOfCards;
             });
         }
         else if (typeof(filterId) === 'undefined') {
@@ -97,7 +93,7 @@ function DatabaseStorageManager() {
                     dataType: 'json',
                     async: false
                 });
-                return response.responseJSON.list_of_boards
+                return response.responseJSON.listOfBoards
             }
         }
     };

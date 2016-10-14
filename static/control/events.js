@@ -130,7 +130,7 @@ function boardEventsBL (event) {
     localStorage.setItem('pageState', 'card-level');
     drawCards();
     boardEventsCL();
-};
+}
 
 
 //
@@ -161,7 +161,7 @@ function boardEventsCL (event) {
         $('#close-menu').prop('id', "open-menu");
         boardMenuClose(event);
     });
-};
+}
 
 //
 // **** DRAG AND DROP ****
