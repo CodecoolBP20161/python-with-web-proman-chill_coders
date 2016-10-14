@@ -23,25 +23,25 @@ def db_to_json():
 
 
 def save_to_db(my_json, entity="board"):
-    if (entity == "board"):
+    if entity == "board":
         Board.create(title=my_json["title"], color=my_json["color"])
-    elif (entity == "card"):
+    elif entity == "card":
         Card.create(title=my_json["title"], color=my_json["color"], board=my_json["owner"])
 
 
 def update_db(my_json, entity="board"):
-    if (entity == "board"):
+    if entity == "board":
         curr_board = my_json["board"]
         db_board = Board.get(Board.id == curr_board["id"])
         db_board.title = curr_board["title"]
         db_board.save()
-        #Board.update(Board.title=curr_board["title"]).where(Board.id == curr_board["id"])
-    elif (entity == "card"):
+        # Board.update(Board.title=curr_board["title"]).where(Board.id == curr_board["id"])
+    elif entity == "card":
         curr_card = my_json["card"]
         db_card = Card.get(Card.id == curr_card["id"])
         db_card.title = curr_card["title"]
         db_card.save()
-        #Card.update(Card.title=curr_card["title"]).where(Card.id == curr_card["id"])
+        # Card.update(Card.title=curr_card["title"]).where(Card.id == curr_card["id"])
 
 
 # This hook ensures that a connection is opened to handle any queries
@@ -88,13 +88,13 @@ def card_level(board_id):
 
 @app.route('/api/newboard', methods=["POST"])
 def save_new_board():
-    save_to_db(request.get_json()["json_str"])
+    save_to_db(request.get_json()["jsonStr"])
     return 'ok'
 
 
 @app.route('/api/newcard', methods=["POST"])
 def save_new_card():
-    save_to_db(request.get_json()["json_str"], "card")
+    save_to_db(request.get_json()["jsonStr"], "card")
     return 'ok'
 
 if __name__ == '__main__':

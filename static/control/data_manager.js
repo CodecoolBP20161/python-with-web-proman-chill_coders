@@ -2,9 +2,9 @@
 // **** State Settings ****
 //
 // for Implementation1
-var storage = new State(new LocalStorageManager('list_of_boards'));
+var storage = new State(new LocalStorageManager('listOfBoards'));
 // for Implementation2
-storage.changeState(new DatabaseStorageManager());
+// storage.changeState(new DatabaseStorageManager());
 
 
 // **** State Object Constructor ****
@@ -15,8 +15,8 @@ function State(state) {
         this.state = state
     };
 
-    this.loadData = function (option, filter_id) {
-        this.state.loadData(option, filter_id)
+    this.loadData = function (option, filterId) {
+        this.state.loadData(option, filterId)
     };
 
     this.saveData = function (data) {
@@ -30,27 +30,27 @@ function LocalStorageManager(keyword) {
     this.keyword = keyword;
 
     // loading data from localStorage
-    this.loadData = function (option, filter_id) {
-        if (filter_id) {
+    this.loadData = function (option, filterId) {
+        if (filterId) {
             var listOfObjects = JSON.parse(localStorage.getItem(this.keyword));
             if (listOfObjects === null)
                 listOfObjects = [];
             return listOfObjects;
         }
-        else if (typeof(filter_id) === 'undefined') {
+        else if (typeof(filterId) === 'undefined') {
             if (option == 'boards') {
                 var listOfObjects = JSON.parse(localStorage.getItem(this.keyword));
                 if (listOfObjects === null)
                     listOfObjects = [];
                 return listOfObjects;
             }
-            else if (option == 'page_state') {
-                var page_state = localStorage.getItem('page_state');
-                return page_state;
+            else if (option == 'pageState') {
+                var pageState = localStorage.getItem('pageState');
+                return pageState;
             }
-            else if (option == 'current_board') {
-                var current_board = JSON.parse(localStorage.getItem('current_board'));
-                return current_board;
+            else if (option == 'currentBoard') {
+                var currentBoard = JSON.parse(localStorage.getItem('currentBoard'));
+                return currentBoard;
             }
         }
     };
@@ -68,7 +68,7 @@ function LocalStorageManager(keyword) {
                     listOfObjects[i].listOfCards.push(card);
                 }
             }
-            localStorage.setItem('current_board', JSON.stringify(board));
+            localStorage.setItem('currentBoard', JSON.stringify(board));
         }
         localStorage.setItem(this.keyword, JSON.stringify(listOfObjects));
     };
@@ -79,17 +79,17 @@ function LocalStorageManager(keyword) {
 function DatabaseStorageManager() {
 
     // loading data from database
-    this.loadData = function (option, filter_id) {
-        if (filter_id) {
-            $.getJSON('http://0.0.0.0:5000/api/' + filter_id.toString() + '/cards', function (response) {
-                var listOfCards = response.list_of_cards;
+    this.loadData = function (option, filterId) {
+        if (filterId) {
+            $.getJSON('http://0.0.0.0:5000/api/' + filterId.toString() + '/cards', function (response) {
+                var listOfCards = response.listOfCards;
                 if (listOfCards === null) {
                     return []
                 }
-                return listOfCards;
+                return list_of_cards;
             });
         }
-        else if (typeof(filter_id) === 'undefined') {
+        else if (typeof(filterId) === 'undefined') {
             if (option == 'boards') {
                 var response = $.ajax({
                     type: 'GET',
@@ -104,24 +104,23 @@ function DatabaseStorageManager() {
     
     // saving data into database
     this.saveData = function (board, card) {
-        // var listOfObjects = this.loadData('boards');
-        var my_json;
-        var url_str = "/api/";
+        var myJson;
+        var urlStr = "/api/";
         if (typeof(card) === 'undefined') {
-            my_json = {json_str: board};
-            url_str += "newboard";
+            myJson = {jsonStr: board};
+            urlStr += "newboard";
         }
         else {
             card.owner = board.id;
-            my_json = {json_str: card};
-            url_str += "newcard";
+            myJson = {jsonStr: card};
+            urlStr += "newcard";
             board.listOfCards.push(card);
-            localStorage.setItem('current_board', JSON.stringify(board));
+            localStorage.setItem('currentBoard', JSON.stringify(board));
         }
         $.ajax({
             type : "POST",
-            url : url_str,
-            data: JSON.stringify(my_json),
+            url : urlStr,
+            data: JSON.stringify(myJson),
             contentType: 'application/json',
             dataType: 'json'
         });

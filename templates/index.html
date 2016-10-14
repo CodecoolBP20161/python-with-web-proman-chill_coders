@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,42 +17,39 @@
     <link href="../static/style.css" rel="stylesheet">
     <!-- Import JavaScript -->
     <script type="text/javascript" src="../static/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="../static/data.js"></script>
-    <script type="text/javascript" src="../static/board.js"></script>
-    <script type="text/javascript" src="../static/card.js"></script>
-    <script type="text/javascript" src="../static/new_board.js"></script>
-    <script type="text/javascript" src="../static/event.js"></script>
-    <script type="text/javascript" src="../static/script.js"></script>
-  </head>
-
-  <body>
-    <!-- HEADER -->
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="https://codecool.hu/">Pro Man</a>
-        </div>
-      </div>
-    </nav>
-
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../static/model/board.js"></script>
+    <script type="text/javascript" src="../static/model/card.js"></script>
+    <script type="text/javascript" src="../static/view/board_view.js"></script>
+    <script type="text/javascript" src="../static/view/card_view.js"></script>
+    <script type="text/javascript" src="../static/view/new_board_view.js"></script>
+    <script type="text/javascript" src="../static/control/data_manager.js"></script>
+    <script type="text/javascript" src="../static/control/events.js"></script>
+    <script type="text/javascript" src="../static/control/utility.js"></script>
+    <script type="text/javascript" src="../static/control/script.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="container">
-        <div class="board-list">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="https://codecool.hu/">Pro Man</a>
         </div>
-        <div class="card-list">
-        </div>
-        <div class="new-board">
-            <div id="new-board-tile" class="thumbnail tile tile-medium tile-concrete">
-                <div id="show">
-                    <h1 class="tile-text">New</h1>
-                    <i class="fa fa-4x fa-plus-square"></i>
-                </div>
-                <div id="edit">
-                    <input id="title-input" type="text" class="form-control input-lg" placeholder="New" maxlength="9">
-                    <i id="make-board" class="fa fa-4x fa-plus-square"></i>
-                </div>
+    </div>
+</nav>
+
+<ul class="container">
+    <div class="board-list">
+    </div>
+    <div class="card-list">
+    </div>
+    <div class="new-board">
+        <div id="new-board-tile" class="thumbnail tile tile-medium tile-concrete">
+            <div id="adder-content">
+                <h1 class="tile-text" id="title-default">New</h1><i class="fa fa-4x fa-plus-square"></i>
             </div>
         </div>
     </div>
-  </body>
+</ul>
+</body>
 </html>
 

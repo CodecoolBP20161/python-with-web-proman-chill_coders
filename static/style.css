@@ -1,12 +1,14 @@
 
 .board-list {
     word-wrap: break-word;
+    float: left;
 }
 
 .tile {
     box-shadow: 5px 5px 5px #c3c3c3;
     border: 0;
     margin-right: 12px;
+    margin-bottom: 12px;
 }
 
 #title-input{
@@ -32,8 +34,9 @@
     display: none;
 }
 
-#new-board-tile{
+.new-board{
     opacity: 0.75;
+    float: left;
 }
 
 .board-element{
@@ -48,6 +51,22 @@
     display: none;
 }
 
+.board-menu{
+    display: none;
+}
+
 #back-to-boards{
     text-align: left;
+}
+
+li {
+    list-style: none;
+    float: left;
+}
+
+.placeholder {
+    background-color: inherit;
+    box-shadow: inherit;
+    width: inherit;
+    height: inherit;
 }
